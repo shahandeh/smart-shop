@@ -6,9 +6,15 @@ import javax.inject.Singleton
 
 @Singleton
 class RemoteDataSource @Inject constructor(
-    private val iShopApi: IShopApi
+    private val iShopApi: IShopApi,
 ) {
 
-    suspend fun getProductList(page: Int, orderBy: String) = iShopApi.getProductList(page, orderBy)
+    suspend fun getProductListByOrder(page: Int, orderBy: String) = iShopApi.getProductListByOrder(page, orderBy)
+
+    suspend fun getProductListByCategory(page: Int, category: String) = iShopApi.getProductListByCategory(page, category)
+
+    suspend fun getCategoryList() = iShopApi.getCategoryList()
+
+    suspend fun getProduct(id: String) = iShopApi.getProduct(id)
 
 }

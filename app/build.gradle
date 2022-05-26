@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
@@ -33,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -48,6 +52,9 @@ dependencies {
     //Fragment Activity
     def fragment_version = '1.4.1'
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+    // RepeatOnLifeCycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
 
     //Navigation
     def nav_version = '2.4.2'
@@ -71,4 +78,29 @@ dependencies {
     def glide_version = '4.13.1'
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    //Lottie
+    def lottie_version = '5.0.3'
+    implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // SplashScreen
+    def splash_version = '1.0.0-rc01'
+    implementation "androidx.core:core-splashscreen:$splash_version"
+
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    // Coroutine Lifecycle Scopes
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+
+    // Shimmer
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
+
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
 }

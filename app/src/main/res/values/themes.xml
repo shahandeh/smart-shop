@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.SmartShop" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/red_theme_primary_medium</item>
+        <item name="colorPrimaryVariant">@color/red_theme_primary_dark</item>
+        <item name="colorOnPrimary">@color/red_theme_primary_light</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -12,5 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/red_theme_primary_text</item>
+        <item name="android:textColorSecondary">@color/red_theme_secondary_text</item>
+        <item name="android:textColorHint">@color/red_theme_hint_text</item>
+        <item name="android:divider">@color/red_theme_dividers</item>
+    </style>
+    <style name="Theme.splashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_shop</item>
+        <item name="postSplashScreenTheme">@style/Theme.SmartShop</item>
     </style>
 </resources>

@@ -1,8 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.HomeFragment">
+    android:scrollbars="none"
+    tools:context=".ui.home.HomeFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_date"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_popularity"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_date" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_rated"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_popularity" />
+
+        <com.example.smartshop.ui.customview.ShopCustomView
+            android:id="@+id/date_custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view_date"
+            app:layout_constraintEnd_toEndOf="@id/recycler_view_date"
+            app:layout_constraintStart_toStartOf="@id/recycler_view_date"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_date" />
+
+        <com.example.smartshop.ui.customview.ShopCustomView
+            android:id="@+id/popularity_custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view_popularity"
+            app:layout_constraintEnd_toEndOf="@id/recycler_view_popularity"
+            app:layout_constraintStart_toStartOf="@id/recycler_view_popularity"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_popularity" />
+
+        <com.example.smartshop.ui.customview.ShopCustomView
+            android:id="@+id/rate_custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view_rated"
+            app:layout_constraintEnd_toEndOf="@id/recycler_view_rated"
+            app:layout_constraintStart_toStartOf="@id/recycler_view_rated"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_rated" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

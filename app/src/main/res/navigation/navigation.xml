@@ -7,7 +7,44 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.smartshop.ui.HomeFragment"
+        android:name="com.example.smartshop.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.smartshop.ui.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.smartshop.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_detailFragment"
+        app:destination="@id/detailFragment" />
+    <action
+        android:id="@+id/action_global_categoryFragment"
+        app:destination="@id/categoryFragment" />
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.example.smartshop.ui.productlist.ProductListFragment"
+        android:label="fragment_product_list"
+        tools:layout="@layout/fragment_product_list" >
+        <argument
+            android:name="orderBy"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_productListFragment"
+        app:destination="@id/productListFragment" />
 </navigation>

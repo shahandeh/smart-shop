@@ -3,6 +3,10 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/bottom_navigation_menu_home_selector"
-        android:enabled="true"
         android:title="@string/home" />
+
+    <item
+        android:id="@+id/categoryFragment"
+        android:icon="@drawable/bottom_navigation_menu_category_selector"
+        android:title="@string/category"/>
 </menu>
