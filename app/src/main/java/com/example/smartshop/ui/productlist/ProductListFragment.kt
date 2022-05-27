@@ -24,8 +24,6 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
     private val productListViewModel by viewModels<ProductListViewModel>()
     private val args by navArgs<ProductListFragmentArgs>()
     private lateinit var productListAdapter: ProductListAdapter
-    private var isLoading = false
-    private var pageNumber = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,14 +39,14 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         binding.productListRecyclerView.adapter?.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-        productListViewModel.getProductListByCategory(pageNumber, args.category.toString())
-        productListViewModel.getProductListByOrder(pageNumber, args.orderBy.toString())
+        productListViewModel.getProductListByCategory(productListViewModel.pageNumber, args.category.toString())
+        productListViewModel.getProductListByOrder(productListViewModel.pageNumber, args.orderBy.toString())
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 if (args.category != null) {
                     binding.productListRecyclerView.scrollListener {
-                        productListViewModel.getProductListByCategory(pageNumber, args.category.toString())
+                        productListViewModel.getProductListByCategory(productListViewModel.pageNumber, args.category.toString())
                     }
                     productListViewModel.getProductListByCategory
                         .collect { resultWrapper ->
@@ -57,7 +55,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                                     binding.customView.onFail(resultWrapper.message.toString())
                                     binding.customView.click {
                                         productListViewModel.getProductListByCategory(
-                                            pageNumber,
+                                            productListViewModel.pageNumber,
                                             args.category.toString())
                                     }
                                 }
@@ -65,8 +63,8 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                                     binding.customView.onLoading()
                                 }
                                 is ResultWrapper.Success -> {
-                                    pageNumber++
-                                    isLoading = false
+                                    productListViewModel.pageNumber++
+                                    productListViewModel.isLoading = false
                                     binding.customView.onSuccess()
                                     resultWrapper.value?.let {
                                         productListViewModel.cachedList.addAll(it)
@@ -79,7 +77,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                         }
                 } else {
                     binding.productListRecyclerView.scrollListener {
-                        productListViewModel.getProductListByOrder(pageNumber, args.orderBy.toString())
+                        productListViewModel.getProductListByOrder(productListViewModel.pageNumber, args.orderBy.toString())
                     }
                     productListViewModel.getProductListByOrder
                         .collect { resultWrapper ->
@@ -88,7 +86,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                                     binding.customView.onFail(resultWrapper.message.toString())
                                     binding.customView.click {
                                         productListViewModel.getProductListByOrder(
-                                            pageNumber,
+                                            productListViewModel.pageNumber,
                                             args.orderBy.toString()
                                         )
                                     }
@@ -97,8 +95,8 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                                     binding.customView.onLoading()
                                 }
                                 is ResultWrapper.Success -> {
-                                    pageNumber++
-                                    isLoading = false
+                                    productListViewModel.pageNumber++
+                                    productListViewModel.isLoading = false
                                     binding.customView.onSuccess()
                                     resultWrapper.value?.let {
                                         productListViewModel.cachedList.addAll(it)
@@ -130,9 +128,9 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                 val visibleItemCount = layoutManager.childCount
                 val totalItemCount = layoutManager.itemCount
 
-                if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && isScrolling && !isLoading) {
+                if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && isScrolling && !productListViewModel.isLoading) {
                     fn()
-                    isLoading = true
+                    productListViewModel.isLoading = true
                 }
             }
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

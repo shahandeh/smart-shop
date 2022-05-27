@@ -17,6 +17,8 @@ class ProductListViewModel @Inject constructor(
 ) : ViewModel() {
 
     var cachedList = mutableListOf<Product>()
+    var isLoading = false
+    var pageNumber = 1
 
     private var _getProductListByOrder: MutableStateFlow<ResultWrapper<out List<Product>?>> =
         MutableStateFlow(ResultWrapper.Loading)
