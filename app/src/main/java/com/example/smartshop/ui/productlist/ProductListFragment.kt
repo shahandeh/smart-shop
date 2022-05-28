@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentProductListBinding
 import com.example.smartshop.safeapi.ResultWrapper
+import com.example.smartshop.ui.adapter.ProductItemDecoration
 import com.example.smartshop.ui.adapter.ProductListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         binding = FragmentProductListBinding.bind(view)
 
 
-        productListAdapter = ProductListAdapter{
+        productListAdapter = ProductListAdapter {
             showDetail(it)
         }
         binding.productListRecyclerView.adapter = productListAdapter
@@ -39,14 +40,17 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         binding.productListRecyclerView.adapter?.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-        productListViewModel.getProductListByCategory(productListViewModel.pageNumber, args.category.toString())
-        productListViewModel.getProductListByOrder(productListViewModel.pageNumber, args.orderBy.toString())
+        productListViewModel.getProductListByCategory(productListViewModel.pageNumber,
+            args.category.toString())
+        productListViewModel.getProductListByOrder(productListViewModel.pageNumber,
+            args.orderBy.toString())
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 if (args.category != null) {
                     binding.productListRecyclerView.scrollListener {
-                        productListViewModel.getProductListByCategory(productListViewModel.pageNumber, args.category.toString())
+                        productListViewModel.getProductListByCategory(productListViewModel.pageNumber,
+                            args.category.toString())
                     }
                     productListViewModel.getProductListByCategory
                         .collect { resultWrapper ->
@@ -77,7 +81,8 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                         }
                 } else {
                     binding.productListRecyclerView.scrollListener {
-                        productListViewModel.getProductListByOrder(productListViewModel.pageNumber, args.orderBy.toString())
+                        productListViewModel.getProductListByOrder(productListViewModel.pageNumber,
+                            args.orderBy.toString())
                     }
                     productListViewModel.getProductListByOrder
                         .collect { resultWrapper ->
@@ -133,6 +138,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                     productListViewModel.isLoading = true
                 }
             }
+
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 isScrolling = newState >= 1

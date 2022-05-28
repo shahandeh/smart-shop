@@ -1,9 +1,9 @@
 package com.example.smartshop.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.data.model.Product
@@ -40,4 +40,11 @@ class ProductListAdapter(
         holder.bind(getItem(position))
     }
 
+}
+
+class ProductDiffCallback: DiffUtil.ItemCallback<Product>() {
+
+    override fun areItemsTheSame(oldItem: Product, newItem: Product) = oldItem.name == newItem.name
+
+    override fun areContentsTheSame(oldItem: Product, newItem: Product) = oldItem == newItem
 }

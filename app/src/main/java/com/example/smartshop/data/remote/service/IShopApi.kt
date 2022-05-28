@@ -39,4 +39,11 @@ interface IShopApi {
         @Query ("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
     ): Response<Product>
 
+    @GET("wp-json/wc/v3/products")
+    suspend fun searchProduct(
+        @Query("search") search: String,
+        @Query ("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query ("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
+    ): Response<List<Product>>
+
 }

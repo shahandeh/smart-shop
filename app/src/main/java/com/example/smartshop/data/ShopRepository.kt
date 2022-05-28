@@ -19,4 +19,5 @@ class ShopRepository @Inject constructor(
 
     suspend fun getProduct(id: String) = safeApiCall { remoteDataSource.getProduct(id) }
 
+    suspend fun searchProduct(param: String) = safeApiCall { remoteDataSource.searchProduct(param) }
 }

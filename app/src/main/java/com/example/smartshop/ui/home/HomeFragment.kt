@@ -1,7 +1,11 @@
 package com.example.smartshop.ui.home
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -54,6 +58,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
             ratedRecyclerView.adapter = ratedListAdapter
             ratedRecyclerView.adapter?.stateRestorationPolicy =
                 RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+            searchImage.setOnClickListener { searchFragment() }
+            cardView.setOnClickListener { searchFragment() }
+
         }
 
         homeViewModel.getProductListByDate()
@@ -183,6 +191,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
             )
         )
         return temp
+    }
+
+    private fun searchFragment(){
+        val action = HomeFragmentDirections.actionGlobalSearchFragment()
+        findNavController().navigate(action)
     }
 
     override fun product(id: String) {

@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.productlist
+package com.example.smartshop.ui.adapter
 
 import android.graphics.Rect
 import android.view.View

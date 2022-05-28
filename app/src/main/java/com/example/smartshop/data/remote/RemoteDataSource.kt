@@ -17,4 +17,6 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun getProduct(id: String) = iShopApi.getProduct(id)
 
+    suspend fun searchProduct(param: String) = iShopApi.searchProduct(param)
+
 }
