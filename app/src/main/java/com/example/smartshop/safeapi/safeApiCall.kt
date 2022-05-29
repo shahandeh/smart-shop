@@ -1,27 +1,32 @@
 package com.example.smartshop.safeapi
 
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-suspend inline fun <T> safeApiCall(
-    crossinline apiCall: suspend () -> Response<T>
-) = flow {
-    emit(ResultWrapper.Loading)
-    try {
-        val response = apiCall()
-        val body = response.body()
-        if (response.isSuccessful && response.body() != null) {
-            emit(ResultWrapper.Success(body))
+fun <T> safeApiCall(
+    dispatcher: CoroutineDispatcher,
+    apiCall: suspend () -> Response<T>,
+) = channelFlow<ResultWrapper<T>> {
+    withContext(dispatcher) {
+        try {
+            val response = apiCall()
+            val body = response.body()
+            if (response.isSuccessful && body != null)
+                send(ResultWrapper.Success(body))
+            else if (response.code() == 400)
+                send(ResultWrapper.Failure("Request Invalid"))
+            else if (response.code() == 401)
+                send(ResultWrapper.Failure("Unauthorized"))
+            else if (response.code() == 404)
+                send(ResultWrapper.Failure("Not Found"))
+            else if (response.code() == 500)
+                send(ResultWrapper.Failure("Internal Server Error"))
+            else
+                send(ResultWrapper.Failure("Unknown Error"))
+        } catch (e: Exception) {
+            send(ResultWrapper.Failure("Unknown Error"))
         }
-        else if (response.code() == 400)
-            emit(ResultWrapper.Failure("Request Invalid"))
-        else if (response.code() == 401)
-            emit(ResultWrapper.Failure("Unauthorized"))
-        else if (response.code() == 404)
-            emit(ResultWrapper.Failure("Not Found"))
-        else if (response.code() == 500)
-            emit(ResultWrapper.Failure("Internal Server Error"))
-    } catch (e: Exception){
-        emit(ResultWrapper.Failure("Unknown Error"))
     }
 }

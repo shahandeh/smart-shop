@@ -6,6 +6,7 @@ import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.Category
 import com.example.smartshop.safeapi.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,10 +24,9 @@ class CategoryViewModel @Inject constructor(
 
     fun getCategoryList(){
         viewModelScope.launch {
-            repository.getCategoryList().collect {
+            repository.getCategoryList(IO).collect {
                 _getCategoryList.emit(it)
             }
         }
     }
-
 }

@@ -2,6 +2,7 @@ package com.example.smartshop.data
 
 import com.example.smartshop.data.remote.RemoteDataSource
 import com.example.smartshop.safeapi.safeApiCall
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -9,15 +10,22 @@ import javax.inject.Singleton
 class ShopRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
 ) {
-    suspend fun getProductListByOrder(page: Int, orderBy: String) =
-        safeApiCall { remoteDataSource.getProductListByOrder(page, orderBy) }
+    fun getProductListByOrder(page: Int, orderBy: String, dispatcher: CoroutineDispatcher) =
+        safeApiCall(dispatcher) { remoteDataSource.getProductListByOrder(page, orderBy) }
 
-    suspend fun getProductListByCategory(page: Int, category: String) =
-        safeApiCall { remoteDataSource.getProductListByCategory(page, category) }
+    fun getProductListByCategory(
+        page: Int,
+        category: String,
+        dispatcher: CoroutineDispatcher,
+    ) =
+        safeApiCall(dispatcher) { remoteDataSource.getProductListByCategory(page, category) }
 
-    suspend fun getCategoryList() = safeApiCall { remoteDataSource.getCategoryList() }
+    fun getCategoryList(dispatcher: CoroutineDispatcher) =
+        safeApiCall(dispatcher) { remoteDataSource.getCategoryList() }
 
-    suspend fun getProduct(id: String) = safeApiCall { remoteDataSource.getProduct(id) }
+    fun getProduct(id: String, dispatcher: CoroutineDispatcher) =
+        safeApiCall(dispatcher) { remoteDataSource.getProduct(id) }
 
-    suspend fun searchProduct(param: String) = safeApiCall { remoteDataSource.searchProduct(param) }
+    fun searchProduct(param: String, dispatcher: CoroutineDispatcher) =
+        safeApiCall(dispatcher) { remoteDataSource.searchProduct(param) }
 }

@@ -6,6 +6,7 @@ import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.Product
 import com.example.smartshop.safeapi.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ class DetailViewModel @Inject constructor(
 
     fun getProduct(id: String) {
         viewModelScope.launch {
-            repository.getProduct(id).collect {
+            repository.getProduct(id, IO).collect {
                 _getProduct.emit(it)
             }
         }
