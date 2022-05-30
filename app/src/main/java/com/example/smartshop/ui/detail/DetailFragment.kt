@@ -16,6 +16,7 @@ import com.example.smartshop.databinding.FragmentDetailBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.ImageRecyclerAdapter
 import com.example.smartshop.util.cleaner
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private lateinit var binding: FragmentDetailBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.GONE
         binding = FragmentDetailBinding.bind(view)
 
         detailViewModel.getProduct(args.id)
@@ -58,6 +60,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private fun setData(product: Product) {
         binding.apply {
             productName.text = product.name
+            if (product.sale_price.isNotBlank()) productPrice.text = product.sale_price
+            else productPrice.text = product.regular_price
             productRatingPoint.text = product.average_rating
             productDescription.text = product.description.cleaner()
         }
@@ -73,5 +77,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ ->
         }.attach()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.VISIBLE
     }
 }

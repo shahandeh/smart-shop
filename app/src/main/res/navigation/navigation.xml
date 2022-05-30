@@ -52,4 +52,9 @@
         android:name="com.example.smartshop.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" /><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/>
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="com.example.smartshop.ui.orderhistory.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
 </navigation>

@@ -5,4 +5,7 @@
     <string name="change_theme">change_theme</string>
     <string name="irr">تومان</string>
     <string name="search">search</string>
+    <string name="buy">خرید</string>
+    <string name="history">History</string>
+    <string name="order_code">کد سفارش</string>
 </resources>

@@ -28,4 +28,7 @@ class ShopRepository @Inject constructor(
 
     fun searchProduct(param: String, dispatcher: CoroutineDispatcher) =
         safeApiCall(dispatcher) { remoteDataSource.searchProduct(param) }
+
+    fun getOrderList(dispatcher: CoroutineDispatcher, pageNumber: Int) =
+        safeApiCall(dispatcher) { remoteDataSource.getOrderList(pageNumber) }
 }

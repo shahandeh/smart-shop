@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/bottom_navigation_menu_home_selector"
@@ -8,5 +9,11 @@
     <item
         android:id="@+id/categoryFragment"
         android:icon="@drawable/bottom_navigation_menu_category_selector"
-        android:title="@string/category"/>
+        android:title="@string/category" />
+
+    <item
+        android:id="@+id/orderHistoryFragment"
+        android:icon="@drawable/ic_history"
+        android:title="@string/history" />
+
 </menu>

@@ -79,15 +79,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
 
                             is ResultWrapper.Success -> {
                                 binding.dateCustomView.onSuccess()
-                                it.value?.let { productList ->
                                     dateListAdapter.submitList(
                                         productList(
-                                            productList,
+                                            it.value,
                                             "جدیدترین محصولات",
                                             "date"
                                         )
                                     )
-                                }
                             }
 
                             is ResultWrapper.Failure -> {
@@ -111,15 +109,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
 
                             is ResultWrapper.Success -> {
                                 binding.popularityCustomView.onSuccess()
-                                it.value?.let { productList ->
                                     popularityListAdapter.submitList(
                                         productList(
-                                            productList,
+                                            it.value,
                                             "پر بازدیدترین محصولات",
                                             "popularity"
                                         )
                                     )
-                                }
                             }
 
                             is ResultWrapper.Failure -> {
@@ -143,14 +139,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
 
                             is ResultWrapper.Success -> {
                                 binding.rateCustomView.onSuccess()
-                                it.value?.let { productList ->
                                     ratedListAdapter.submitList(
                                         productList(
-                                            productList,
+                                            it.value,
                                             "بهترین محصولات",
                                             "rating")
                                     )
-                                }
                             }
 
                             is ResultWrapper.Failure -> {
