@@ -57,4 +57,9 @@
         android:name="com.example.smartshop.ui.orderhistory.OrderHistoryFragment"
         android:label="fragment_order_history"
         tools:layout="@layout/fragment_order_history" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.smartshop.ui.user.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
 </navigation>

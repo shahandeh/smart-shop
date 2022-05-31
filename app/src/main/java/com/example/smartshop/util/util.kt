@@ -1,6 +1,9 @@
 package com.example.smartshop.util
 
 import android.graphics.drawable.Drawable
+import android.view.View
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -8,6 +11,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.imageview.ShapeableImageView
+import kotlinx.coroutines.launch
 
 fun ShapeableImageView.glide(url: String) {
     Glide.with(this)
@@ -52,4 +56,20 @@ fun String.cleaner(): String {
         .replace("p", "")
         .replace(">", "")
         .replace("<", "")
+        .replace("_", " ")
+        .replace("-", " ")
+}
+
+fun View.gone(){
+    visibility = View.GONE
+}
+
+fun View.visible(){
+    visibility = View.VISIBLE
+}
+
+fun ViewModel.launch(fn: suspend () -> Unit){
+    this.viewModelScope.launch {
+        fn()
+    }
 }

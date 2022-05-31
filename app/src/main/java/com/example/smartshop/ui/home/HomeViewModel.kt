@@ -1,15 +1,14 @@
 package com.example.smartshop.ui.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.Product
 import com.example.smartshop.safeapi.ResultWrapper
+import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +30,7 @@ class HomeViewModel @Inject constructor(
         _getProductListByRating
 
     fun getProductListByDate() {
-        viewModelScope.launch {
+        launch {
             repository.getProductListByOrder(1, "date", IO).collect {
                 _getProductListByDate.emit(it)
             }
@@ -39,7 +38,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getProductListByPopularity() {
-        viewModelScope.launch {
+        launch {
             repository.getProductListByOrder(1, "popularity", IO).collect {
                 _getProductListByPopularity.emit(it)
             }
@@ -47,7 +46,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getProductListByRating() {
-        viewModelScope.launch {
+        launch {
             repository.getProductListByOrder(1, "rating", IO).collect {
                 _getProductListByRating.emit(it)
             }

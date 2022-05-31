@@ -2,11 +2,12 @@ package com.example.smartshop.ui.customview
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.lottie.LottieDrawable
 import com.example.smartshop.R
 import com.example.smartshop.databinding.CustomViewLayoutBinding
+import com.example.smartshop.util.gone
+import com.example.smartshop.util.visible
 import javax.inject.Inject
 
 class ShopCustomView @Inject constructor(
@@ -54,14 +55,6 @@ class ShopCustomView @Inject constructor(
         binding.reload.setOnClickListener {
             fn()
         }
-    }
-
-    private fun View.visible(){
-        this.visibility = View.VISIBLE
-    }
-
-    private fun View.gone(){
-        this.visibility = View.GONE
     }
 
 }

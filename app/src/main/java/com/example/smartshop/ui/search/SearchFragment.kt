@@ -44,7 +44,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                TODO("Not yet implemented")
+                //
                 return false
             }
         })
@@ -52,29 +52,26 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 searchViewModel.searchResult.collect {
-                    searchViewModel.searchResult.collect {
-                        when (it) {
-                            ResultWrapper.Loading -> {
-                                if (searchViewModel.param.isBlank())
-                                    binding.customView.onSuccess()
-
-                                else binding.customView.onLoading()
-                            }
-
-                            is ResultWrapper.Success -> {
+                    when (it) {
+                        ResultWrapper.Loading -> {
+                            if (searchViewModel.param.isBlank())
                                 binding.customView.onSuccess()
-                                it.value?.let { productList ->
-                                    searchListAdapter.submitList(productList)
-                                }
-                            }
+                            else binding.customView.onLoading()
+                        }
 
-                            is ResultWrapper.Failure -> {
-                                it.message?.let { message ->
-                                    binding.customView.onFail(message)
-                                }
-                                binding.customView.click {
-                                    searchViewModel.searchProduct(searchViewModel.param)
-                                }
+                        is ResultWrapper.Success -> {
+                            binding.customView.onSuccess()
+                            it.value?.let { productList ->
+                                searchListAdapter.submitList(productList)
+                            }
+                        }
+
+                        is ResultWrapper.Failure -> {
+                            it.message?.let { message ->
+                                binding.customView.onFail(message)
+                            }
+                            binding.customView.click {
+                                searchViewModel.searchProduct(searchViewModel.param)
                             }
                         }
                     }

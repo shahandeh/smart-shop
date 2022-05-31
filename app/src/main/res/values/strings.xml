@@ -8,4 +8,12 @@
     <string name="buy">خرید</string>
     <string name="history">History</string>
     <string name="order_code">کد سفارش</string>
+    <string name="sign_in">ورود به حساب کاربری</string>
+    <string name="sign_up">ساخت حساب کاربری</string>
+    <string name="first_name">نام</string>
+    <string name="last_name">نام خانوادگی</string>
+    <string name="username">نام کاربری</string>
+    <string name="email">ایمیل</string>
+    <string name="profile">Profile</string>
+    <string name="sign_out">خروج از حساب کاربری</string>
 </resources>

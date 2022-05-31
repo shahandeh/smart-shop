@@ -1,15 +1,14 @@
 package com.example.smartshop.ui.search
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.Product
 import com.example.smartshop.safeapi.ResultWrapper
+import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +24,7 @@ class SearchViewModel @Inject constructor(
         _searchResult
 
     fun searchProduct(param: String) {
-        viewModelScope.launch {
+        launch {
             repository.searchProduct(param, IO).collect {
                 _searchResult.emit(it)
             }

@@ -1,15 +1,14 @@
 package com.example.smartshop.ui.detail
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.Product
 import com.example.smartshop.safeapi.ResultWrapper
+import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +22,7 @@ class DetailViewModel @Inject constructor(
         _getProduct
 
     fun getProduct(id: String) {
-        viewModelScope.launch {
+        launch {
             repository.getProduct(id, IO).collect {
                 _getProduct.emit(it)
             }

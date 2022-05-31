@@ -20,6 +20,7 @@ import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.DataModel
 import com.example.smartshop.ui.adapter.HomeListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -40,29 +41,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
         popularityListAdapter = HomeListAdapter(this)
         ratedListAdapter = HomeListAdapter(this)
 
-        binding.apply {
-            dateRecyclerView = recyclerViewDate
-            dateRecyclerView.addItemDecoration(HomeItemDecoration(16))
-            dateRecyclerView.adapter = dateListAdapter
-            dateRecyclerView.adapter?.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        listAdapterInit()
 
-            popularityRecyclerView = recyclerViewPopularity
-            popularityRecyclerView.addItemDecoration(HomeItemDecoration(16))
-            popularityRecyclerView.adapter = popularityListAdapter
-            popularityRecyclerView.adapter?.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-
-            ratedRecyclerView = recyclerViewRated
-            ratedRecyclerView.addItemDecoration(HomeItemDecoration(16))
-            ratedRecyclerView.adapter = ratedListAdapter
-            ratedRecyclerView.adapter?.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-
-            searchImage.setOnClickListener { searchFragment() }
-            cardView.setOnClickListener { searchFragment() }
-
-        }
+        binding.searchImage.setOnClickListener { searchFragment() }
+        binding.cardView.setOnClickListener { searchFragment() }
 
         homeViewModel.getProductListByDate()
         homeViewModel.getProductListByPopularity()
@@ -159,6 +141,30 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
                     }
                 }
             }
+        }
+    }
+
+    private fun listAdapterInit() {
+        binding.apply {
+
+            dateRecyclerView = recyclerViewDate
+            dateRecyclerView.addItemDecoration(HomeItemDecoration(16))
+            dateRecyclerView.adapter = dateListAdapter
+            dateRecyclerView.adapter?.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+            popularityRecyclerView = recyclerViewPopularity
+            popularityRecyclerView.addItemDecoration(HomeItemDecoration(16))
+            popularityRecyclerView.adapter = popularityListAdapter
+            popularityRecyclerView.adapter?.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+            ratedRecyclerView = recyclerViewRated
+            ratedRecyclerView.addItemDecoration(HomeItemDecoration(16))
+            ratedRecyclerView.adapter = ratedListAdapter
+            ratedRecyclerView.adapter?.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
         }
     }
 

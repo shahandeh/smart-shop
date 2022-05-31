@@ -1,13 +1,9 @@
 package com.example.smartshop.data.remote.service
 
 import com.example.smartshop.BuildConfig
-import com.example.smartshop.data.model.Category
-import com.example.smartshop.data.model.Order
-import com.example.smartshop.data.model.Product
+import com.example.smartshop.data.model.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface IShopApi {
 
@@ -53,5 +49,26 @@ interface IShopApi {
         @Query ("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
         @Query ("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET
     ): Response<List<Order>>
+
+    @POST("wp-json/wc/v3/customers")
+    suspend fun createUser(
+        @Body createCustomer: CreateCustomer,
+        @Query ("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query ("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET
+    ): Response<RetrieveCustomer>
+
+    @GET("wp-json/wc/v3/customers/{id}")
+    suspend fun retrieveUser(
+        @Path("id") id: String,
+        @Query ("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query ("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET
+    ): Response<RetrieveCustomer>
+
+    @GET("wp-json/wc/v3/customers")
+    suspend fun retrieveUserList(
+        @Query("search") userName: String,
+        @Query ("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query ("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET
+    ): Response<List<RetrieveCustomer>>
 
 }
