@@ -16,4 +16,7 @@
     <string name="email">ایمیل</string>
     <string name="profile">Profile</string>
     <string name="sign_out">خروج از حساب کاربری</string>
+    <string name="order_complete">تایید خرید</string>
+    <string name="sale">تومان تخفیف</string>
+    <string name="order">Order</string>
 </resources>

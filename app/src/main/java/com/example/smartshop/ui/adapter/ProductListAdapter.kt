@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartshop.data.model.Product
+import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.databinding.ProductListSampleBinding
 import com.example.smartshop.util.glide
 

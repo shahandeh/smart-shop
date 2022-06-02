@@ -2,7 +2,7 @@ package com.example.smartshop.ui.home
 
 import androidx.lifecycle.ViewModel
 import com.example.smartshop.data.ShopRepository
-import com.example.smartshop.data.model.Product
+import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +29,11 @@ class HomeViewModel @Inject constructor(
     val getProductListByRating: StateFlow<ResultWrapper<out List<Product>>> =
         _getProductListByRating
 
+    private var _getImageSlider: MutableStateFlow<ResultWrapper<out Product>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val getImageSlider: StateFlow<ResultWrapper<out Product>> =
+        _getImageSlider
+
     fun getProductListByDate() {
         launch {
             repository.getProductListByOrder(1, "date", IO).collect {
@@ -49,6 +54,14 @@ class HomeViewModel @Inject constructor(
         launch {
             repository.getProductListByOrder(1, "rating", IO).collect {
                 _getProductListByRating.emit(it)
+            }
+        }
+    }
+
+    fun getImageSliderProduct(){
+        launch {
+            repository.getProduct("608", IO).collect {
+                _getImageSlider.emit(it)
             }
         }
     }

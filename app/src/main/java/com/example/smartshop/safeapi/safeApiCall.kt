@@ -1,6 +1,7 @@
 package com.example.smartshop.safeapi
 
-import com.example.smartshop.data.model.ErrorBody
+import android.util.Log
+import com.example.smartshop.data.model.error.ErrorBody
 import com.example.smartshop.util.cleaner
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

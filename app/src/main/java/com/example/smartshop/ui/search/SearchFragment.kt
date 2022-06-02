@@ -1,7 +1,6 @@
 package com.example.smartshop.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentSearchBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.ProductListAdapter
-import com.example.smartshop.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

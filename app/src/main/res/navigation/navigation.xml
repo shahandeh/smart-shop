@@ -27,9 +27,9 @@
     <action
         android:id="@+id/action_global_detailFragment"
         app:destination="@id/detailFragment" />
-    <action
+    <!--<action
         android:id="@+id/action_global_categoryFragment"
-        app:destination="@id/categoryFragment" />
+        app:destination="@id/categoryFragment" />-->
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.example.smartshop.ui.productlist.ProductListFragment"
@@ -46,12 +46,17 @@
     </fragment>
     <action
         android:id="@+id/action_global_productListFragment"
-        app:destination="@id/productListFragment" />
+        app:destination="@id/productListFragment"
+        app:popUpTo="@id/navigation" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.smartshop.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" /><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/>
+        tools:layout="@layout/fragment_search" />
+    <action
+        android:id="@+id/action_global_searchFragment"
+        app:destination="@id/searchFragment"
+        app:popUpTo="@id/navigation" />
     <fragment
         android:id="@+id/orderHistoryFragment"
         android:name="com.example.smartshop.ui.orderhistory.OrderHistoryFragment"
@@ -62,4 +67,9 @@
         android:name="com.example.smartshop.ui.user.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.smartshop.ui.order.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" />
 </navigation>

@@ -1,8 +1,9 @@
 package com.example.smartshop.ui.orderhistory
 
 import androidx.lifecycle.ViewModel
+import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.data.ShopRepository
-import com.example.smartshop.data.model.Order
+import com.example.smartshop.data.model.test.TEST
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,18 +17,22 @@ class OrderHistoryViewModel @Inject constructor(
     private val repository: ShopRepository
 ): ViewModel() {
 
-    var cachedList = mutableListOf<Order>()
+    var cachedList = mutableListOf<TEST>()
     var isLoading = false
     var pageNumber = 1
 
-    private var _orderHistory: MutableStateFlow<ResultWrapper<out List<Order>>> =
+    private var _orderHistory: MutableStateFlow<ResultWrapper<out List<TEST>>> =
         MutableStateFlow(ResultWrapper.Loading)
-    val orderHistory: StateFlow<ResultWrapper<out List<Order>>> =
+    val orderHistory: StateFlow<ResultWrapper<out List<TEST>>> =
         _orderHistory
 
-    fun getOrderHistory(pageNumber: Int) {
+    init {
+        getOrderHistory()
+    }
+
+    fun getOrderHistory() {
         launch {
-            repository.getOrderList(IO, pageNumber).collect {
+            repository.getOrderList(IO, pageNumber, "completed", user_id, 10).collect {
                 _orderHistory.emit(it)
             }
         }

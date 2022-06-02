@@ -21,8 +21,8 @@ import com.example.smartshop.data.DataStoreObject.dataStore
 import com.example.smartshop.databinding.FragmentUserBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.gone
+import com.example.smartshop.util.snack
 import com.example.smartshop.util.visible
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,13 +41,13 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         binding.signUp.setOnClickListener {
             retrieveInputText()
             if (userViewModel.sighUp()) collectUser()
-            else snack("Please fill all field!")
+            else binding.root.snack("Please fill all field!")
         }
 
         binding.signIn.setOnClickListener {
             retrieveInputText()
             if (userViewModel.signIn()) collectUserList()
-            else snack("Please fill all field!")
+            else binding.root.snack("Please fill all field!")
         }
 
         binding.signOut.setOnClickListener {
@@ -86,10 +86,11 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                                 email = it.value.email
                                 isLogInViewInit()
                                 saveUserToDataStore()
+                                binding.root.snack("Your account is created")
                             }
 
                             is ResultWrapper.Failure -> {
-                                snack(it.message.toString())
+                                binding.root.snack(it.message.toString())
                             }
                         }
                     }
@@ -119,11 +120,12 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                                     email = userViewModel.email
                                     isLogInViewInit()
                                     saveUserToDataStore()
-                                } else snack("User not found!")
+                                    binding.root.snack("You are signedIn")
+                                } else binding.root.snack("User not found!")
                             }
 
                             is ResultWrapper.Failure -> {
-                                snack(it.message.toString())
+                                binding.root.snack(it.message.toString())
                             }
                         }
                     }
@@ -184,10 +186,6 @@ class UserFragment : Fragment(R.layout.fragment_user) {
             else
                 setting[dataStoreKey] = userViewModel.id
         }
-    }
-
-    private fun snack(text: String) {
-        Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG).show()
     }
 
 }

@@ -1,7 +1,9 @@
 package com.example.smartshop.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -10,15 +12,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.example.smartshop.R
-import com.example.smartshop.data.model.Image
-import com.example.smartshop.data.model.Product
+import com.example.smartshop.data.CurrentUser
 import com.example.smartshop.databinding.FragmentDetailBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.ImageRecyclerAdapter
 import com.example.smartshop.util.cleaner
+import com.example.smartshop.util.gone
+import com.example.smartshop.util.visible
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -28,28 +32,87 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private lateinit var binding: FragmentDetailBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.GONE
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.gone()
         binding = FragmentDetailBinding.bind(view)
 
+        Log.d("majid", "onViewCreated detail fragment: ${CurrentUser.user_id}")
+
+        binding.buy.setOnClickListener {
+            if (detailViewModel.orderIsEmpty) detailViewModel.createOrder()
+            else detailViewModel.addToOrder()
+        }
         detailViewModel.getProduct(args.id)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    detailViewModel.getProduct.collect {
+                        when (it) {
+                            ResultWrapper.Loading -> {
+                                binding.customView.onLoading()
+                            }
 
-                detailViewModel.getProduct.collect { resultWrapper ->
-                    when (resultWrapper) {
-                        is ResultWrapper.Failure -> {
-                            binding.customView.onFail(resultWrapper.message.toString())
-                            binding.customView.click {
-                                detailViewModel.getProduct(args.id)
+                            is ResultWrapper.Success -> {
+                                binding.customView.onSuccess()
+                                detailViewModel.product = it.value
+                                collectOrder()
+                            }
+
+                            is ResultWrapper.Failure -> {
+                                hideBuyButton()
+                                binding.customView.onFail(it.message.toString())
+                                binding.customView.click {
+                                    detailViewModel.getProduct(args.id)
+                                }
                             }
                         }
-                        ResultWrapper.Loading -> {
-                            binding.customView.onLoading()
+                    }
+                }
+
+                launch {
+                    detailViewModel.createOrder.collect {
+                        when (it) {
+                            ResultWrapper.Loading -> {
+                                binding.customView.onLoading()
+                            }
+
+                            is ResultWrapper.Success -> {
+                                binding.customView.onSuccess()
+                                setData()
+                                showImage()
+                            }
+
+                            is ResultWrapper.Failure -> {
+                                hideBuyButton()
+                                binding.customView.onFail(it.message.toString())
+                                binding.customView.click {
+                                    detailViewModel.getProduct(args.id)
+                                }
+                            }
                         }
-                        is ResultWrapper.Success -> {
-                            binding.customView.onSuccess()
-                            resultWrapper.value?.let { setData(it) }
+                    }
+                }
+
+                launch {
+                    detailViewModel.updateOrderResponse.collect {
+                        when (it) {
+                            ResultWrapper.Loading -> {
+                                binding.customView.onLoading()
+                            }
+
+                            is ResultWrapper.Success -> {
+                                binding.customView.onSuccess()
+                                detailViewModel.orderContainProduct = true
+                                setData()
+                            }
+
+                            is ResultWrapper.Failure -> {
+                                hideBuyButton()
+                                binding.customView.onFail(it.message.toString())
+                                binding.customView.click {
+                                    detailViewModel.getProduct(args.id)
+                                }
+                            }
                         }
                     }
                 }
@@ -57,19 +120,76 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
-    private fun setData(product: Product) {
-        binding.apply {
-            productName.text = product.name
-            if (product.sale_price.isNotBlank()) productPrice.text = product.sale_price
-            else productPrice.text = product.regular_price
-            productRatingPoint.text = product.average_rating
-            productDescription.text = product.description.cleaner()
+    private fun CoroutineScope.collectOrder() {
+        launch {
+            detailViewModel.getOrder.collect {
+                when (it) {
+                    ResultWrapper.Loading -> {
+                        binding.customView.onLoading()
+                    }
+
+                    is ResultWrapper.Success -> {
+                        binding.customView.onSuccess()
+                        if (it.value.isEmpty()) {
+                            detailViewModel.orderIsEmpty = true
+                            setData()
+                            showImage()
+                            showBuyButton()
+                        } else {
+                            hideBuyButton()
+                            detailViewModel.order = it.value[0]
+                            orderContainProduct()
+                        }
+                    }
+
+                    is ResultWrapper.Failure -> {
+                        hideBuyButton()
+                        binding.customView.onFail(it.message.toString())
+                        binding.customView.click {
+                            detailViewModel.getProduct(args.id)
+                        }
+                    }
+                }
+            }
         }
-        showImage(product.images)
     }
 
-    private fun showImage(list: List<Image>) {
-        val imageRecyclerAdapter = ImageRecyclerAdapter(list)
+    private fun orderContainProduct() {
+        for (i in detailViewModel.order.line_items) {
+            if (i.product_id == detailViewModel.product.id) {
+                detailViewModel.orderContainProduct = true
+            }
+        }
+        setData()
+        showImage()
+    }
+
+    private fun showBuyButton() {
+        binding.apply {
+            buy.visible()
+        }
+    }
+
+    private fun hideBuyButton() {
+        binding.apply {
+            buy.gone()
+        }
+    }
+
+    private fun setData() {
+        binding.apply {
+            productName.text = detailViewModel.product.name
+            productRatingPoint.text = detailViewModel.product.average_rating
+            productDescription.text = detailViewModel.product.description.cleaner()
+            if (detailViewModel.product.sale_price.isNotBlank())
+                productPrice.text = detailViewModel.product.sale_price
+            else productPrice.text = detailViewModel.product.regular_price
+            buy.isGone = detailViewModel.orderContainProduct
+        }
+    }
+
+    private fun showImage() {
+        val imageRecyclerAdapter = ImageRecyclerAdapter(detailViewModel.product.images)
         binding.viewPager.apply {
             adapter = imageRecyclerAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -81,6 +201,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onStop() {
         super.onStop()
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.VISIBLE
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visible()
     }
 }

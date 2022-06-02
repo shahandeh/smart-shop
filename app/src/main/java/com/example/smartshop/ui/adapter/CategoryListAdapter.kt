@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartshop.data.model.Category
+import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.databinding.CategoryListSampleBinding
 import com.example.smartshop.util.glide
 

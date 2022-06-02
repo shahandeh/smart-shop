@@ -1,6 +1,6 @@
 package com.example.smartshop.ui.adapter
 
-import com.example.smartshop.data.model.Product
+import com.example.smartshop.data.model.product.Product
 
 sealed class DataModel {
     data class Header(

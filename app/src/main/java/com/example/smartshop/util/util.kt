@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 fun ShapeableImageView.glide(url: String) {
@@ -72,4 +73,8 @@ fun ViewModel.launch(fn: suspend () -> Unit){
     this.viewModelScope.launch {
         fn()
     }
+}
+
+fun View.snack(text: String) {
+    Snackbar.make(this, text, Snackbar.LENGTH_LONG).show()
 }

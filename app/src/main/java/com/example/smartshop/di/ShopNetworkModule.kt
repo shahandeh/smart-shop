@@ -32,4 +32,11 @@ object ShopNetworkModule {
     fun provideService(
         retrofit: Retrofit,
     ): IShopApi = retrofit.create(IShopApi::class.java)
+
+    val retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(BASE_URL)
+        .build()
+
+    val service = retrofit.create(IShopApi::class.java)
 }

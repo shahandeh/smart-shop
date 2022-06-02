@@ -2,7 +2,7 @@ package com.example.smartshop.ui.category
 
 import androidx.lifecycle.ViewModel
 import com.example.smartshop.data.ShopRepository
-import com.example.smartshop.data.model.Category
+import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -2,11 +2,8 @@ package com.example.smartshop.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.smartshop.data.model.Image
+import com.example.smartshop.data.model.product.Image
 import com.example.smartshop.databinding.ImageListSampleBinding
 import com.example.smartshop.util.glide
 

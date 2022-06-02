@@ -1,7 +1,7 @@
 package com.example.smartshop.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.smartshop.data.model.Category
+import com.example.smartshop.data.model.product.Category
 
 class CategoryDiffCallback: DiffUtil.ItemCallback<Category>() {
 
