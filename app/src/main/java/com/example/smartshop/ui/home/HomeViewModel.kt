@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.safeapi.ResultWrapper
+import com.example.smartshop.ui.adapter.DataModel
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -58,11 +59,60 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getImageSliderProduct(){
+    fun getImageSliderProduct() {
         launch {
             repository.getProduct("608", IO).collect {
                 _getImageSlider.emit(it)
             }
         }
+    }
+
+    fun productList(list: List<Product>, title: String, order: String): List<DataModel> {
+        val temp = mutableListOf<DataModel>()
+        temp.add(
+            DataModel.Header(
+                title = title,
+                order = order
+            )
+        )
+
+        for (i in list) {
+            temp.add(
+                DataModel.Data(
+                    i
+                )
+            )
+        }
+
+        temp.add(
+            DataModel.Footer(
+                order = order
+            )
+        )
+        return temp
+    }
+
+    fun createDataList(list: List<Product>): List<DataModel> {
+        return productList(
+            list,
+            "جدیدترین محصولات",
+            "date"
+        )
+    }
+
+    fun createPopularityList(list: List<Product>): List<DataModel> {
+        return productList(
+            list,
+            "پر بازدیدترین محصولات",
+            "popularity"
+        )
+    }
+
+    fun createRatedList(list: List<Product>): List<DataModel> {
+        return productList(
+            list,
+            "بهترین محصولات",
+            "rating"
+        )
     }
 }

@@ -4,6 +4,7 @@ import com.example.smartshop.data.model.customer.CreateCustomer
 import com.example.smartshop.data.model.order.CreateOrder
 import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.remote.RemoteDataSource
+import com.example.smartshop.di.IRemoteDataSourceDependencyInjection
 import com.example.smartshop.safeapi.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 
 @Singleton
 class ShopRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource,
+    @IRemoteDataSourceDependencyInjection private val remoteDataSource: IRemoteDataSource,
 ) {
     fun getProductListByOrder(page: Int, orderBy: String, dispatcher: CoroutineDispatcher) =
         safeApiCall(dispatcher) { remoteDataSource.getProductListByOrder(page, orderBy) }
@@ -32,7 +33,11 @@ class ShopRepository @Inject constructor(
     fun searchProduct(param: String, dispatcher: CoroutineDispatcher) =
         safeApiCall(dispatcher) { remoteDataSource.searchProduct(param) }
 
-    suspend fun createOrder(dispatcher: CoroutineDispatcher, customerId: Int, createOrder: CreateOrder) =
+    suspend fun createOrder(
+        dispatcher: CoroutineDispatcher,
+        customerId: Int,
+        createOrder: CreateOrder,
+    ) =
         safeApiCall(dispatcher) { remoteDataSource.createOrder(customerId, createOrder) }
 
     suspend fun addToOrder(dispatcher: CoroutineDispatcher, id: Int, createOrder: CreateOrder) =
@@ -48,6 +53,9 @@ class ShopRepository @Inject constructor(
         customerId: Int,
         perPage: Int,
     ) = safeApiCall(dispatcher) { remoteDataSource.getOrderList(page, status, customerId, perPage) }
+
+    suspend fun getOrderListByInclude(dispatcher: CoroutineDispatcher, include: String) =
+        safeApiCall(dispatcher) { remoteDataSource.getOrderListByInclude(include) }
 
     fun createUser(dispatcher: CoroutineDispatcher, createCustomer: CreateCustomer) =
         safeApiCall(dispatcher) { remoteDataSource.createUser(createCustomer) }

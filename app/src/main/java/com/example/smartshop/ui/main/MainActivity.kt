@@ -1,14 +1,15 @@
 package com.example.smartshop.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var container: FragmentContainerView
     private lateinit var nhf: NavHostFragment
     private lateinit var animation: LottieAnimationView
+    private lateinit var networkLayout: ConstraintLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().setKeepOnScreenCondition {
             var condition = false
@@ -61,25 +63,28 @@ class MainActivity : AppCompatActivity() {
 
         container = findViewById(R.id.container)
         animation = findViewById(R.id.network_animation)
+        networkLayout = findViewById(R.id.network_error_layout)
         bnv = findViewById(R.id.bottom_navigation_view)
         nhf = supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
-
         val navController = nhf.navController
-
         bnv.setupWithNavController(navController)
+        supportActionBar?.hide()
+
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mainViewModel.status.collect { state ->
                     when (state) {
                         NetworkStatus.Available -> {
+                            supportActionBar?.show()
                             bnv.visible()
-                            container.isActivated = true
+                            networkLayout.gone()
                             animation.gone()
                         }
                         NetworkStatus.Unavailable -> {
-                            bnv.gone()
-                            container.isActivated = false
+                            supportActionBar?.hide()
+                            bnv.visibility = View.INVISIBLE
+                            networkLayout.visible()
                             animation.visible()
                         }
                     }

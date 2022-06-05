@@ -1,24 +1,18 @@
 package com.example.smartshop.ui.order
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.smartshop.data.CurrentUser
 import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.data.ShopRepository
-import com.example.smartshop.data.model.createOrderResponse.LineItem
 import com.example.smartshop.data.model.order.GetOrder
-import com.example.smartshop.data.model.order.UpdateLineItem
+import com.example.smartshop.data.model.order.LineItem
 import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.data.model.product.ProductInOrder
-import com.example.smartshop.data.model.test.TEST
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
@@ -27,168 +21,151 @@ class OrderViewModel @Inject constructor(
     private val repository: ShopRepository,
 ) : ViewModel() {
 
-    lateinit var currentOrder: TEST
-    lateinit var currentResponse: UpdateOrder
-    var listUpdated = false
-    var productList = mutableListOf<Product>()
-//    lateinit var updateResponseList: List<UpdateLineItem>
+    private lateinit var updateOrder: UpdateOrder
 
-    private var _order: MutableStateFlow<ResultWrapper<out List<TEST>>> =
-        MutableStateFlow(ResultWrapper.Loading)
-    val order: StateFlow<ResultWrapper<out List<TEST>>> =
-        _order
+    var productInOrderList = mutableListOf<ProductInOrder>()
+    private var orderItemList = mutableListOf<LineItem>()
+    private var orderId = 0
 
-    private var _getProduct: MutableStateFlow<ResultWrapper<out Product>> =
+    private var _currentPendingOrder: MutableStateFlow<ResultWrapper<out List<GetOrder>>> =
         MutableStateFlow(ResultWrapper.Loading)
-    val getProduct: StateFlow<ResultWrapper<out Product>> =
-        _getProduct
+    val currentPendingOrder: StateFlow<ResultWrapper<out List<GetOrder>>> =
+        _currentPendingOrder
+
+    private var _productList: MutableStateFlow<ResultWrapper<out List<Product>>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val productList: StateFlow<ResultWrapper<out List<Product>>> =
+        _productList
 
     private var _updateOrderResponse: MutableStateFlow<ResultWrapper<out UpdateOrder>> =
         MutableStateFlow(ResultWrapper.Loading)
     val updateOrderResponse: StateFlow<ResultWrapper<out UpdateOrder>> =
         _updateOrderResponse
 
+    init {
+        getOrder()
+    }
 
     fun getOrder() {
         launch {
-            repository.getOrderList(IO, 1, "pending", user_id, 1).collect {
-                _order.emit(it)
+            repository.getOrderList(
+                IO,
+                1,
+                "pending",
+                user_id,
+                1
+            ).collect {
+                _currentPendingOrder.emit(it)
             }
         }
     }
 
-    fun getProductInOrder() {
-        Log.d(TAG, "onViewCreated: order")
+    fun setDataFromOrder(list: List<GetOrder>) {
+        orderItemList = list[0].line_items as MutableList<LineItem>
+        orderId = list[0].id
+        createIdList()
+    }
+
+    private fun createIdList() {
+        val idList = mutableListOf<Int>()
+        idList.add(0)
+        for (i in orderItemList) idList.add(i.product_id)
+        getProductList(idList.toString())
+    }
+
+    private fun getProductList(list: String) {
         launch {
-            for (i in currentOrder.line_items) {
-                repository.getProduct(i.product_id.toString(), IO).collect {
-                    _getProduct.emit(it)
-                }
-
+            repository.getOrderListByInclude(IO, list).collect {
+                _productList.emit(it)
             }
         }
     }
 
-    fun createProductListFromOrder(): List<ProductInOrder> {
+    fun createProductInOrderList(productList: List<Product>): List<ProductInOrder> {
         val temp = mutableListOf<ProductInOrder>()
-        for (i in currentOrder.line_items) {
-            for (j in productList) {
-                if (i.product_id == j.id) {
-                    temp.add(
-                        ProductInOrder(
-                            j.id,
-                            j.name,
-                            j.description,
-                            j.images[0].src,
-                            j.sale_price,
-                            j.regular_price,
-                            i.quantity
-                        )
-                    )
-                }
-            }
-        }
+        for (i in productList) temp.add(
+            ProductInOrder(
+                i.id,
+                i.name,
+                i.description,
+                i.images[0].src,
+                i.sale_price,
+                i.regular_price,
+                orderItemList.find { it.product_id == i.id }?.quantity ?: 0
 
-        productList.clear()
+            )
+        )
         return temp
     }
 
-    fun getProductInResponse() {
-        Log.d(TAG, "onViewCreated: response")
-        launch {
-            for (i in currentResponse.line_items) {
-                repository.getProduct(i.product_id.toString(), IO).collect {
-                    _getProduct.emit(it)
-                }
-            }
-        }
-    }
-
-    fun createProductListFromResponse(): List<ProductInOrder> {
-        val temp = mutableListOf<ProductInOrder>()
-        for (i in currentResponse.line_items) {
-            for (j in productList) {
-                if (i.id == j.id) {
-                    temp.add(
-                        ProductInOrder(
-                            j.id,
-                            j.name,
-                            j.description,
-                            j.images[0].src,
-                            j.sale_price,
-                            j.regular_price,
-                            i.quantity
-                        )
-                    )
-                }
-            }
-        }
-        return temp
-    }
-
-    fun productCount(id: Int, isPlus: Boolean) {
-        val temp = mutableListOf<UpdateLineItem>()
-        for (i in currentOrder.line_items) {
-            if (i.product_id == id && isPlus) {
+    fun funQuantityPlus(productId: Int) {
+        val temp = mutableListOf<LineItem>()
+        for (i in orderItemList) {
+            if (i.product_id == productId) {
                 temp.add(
-                    UpdateLineItem(
+                    LineItem(
                         i.id,
                         i.product_id,
                         i.quantity + 1
                     )
                 )
-            } else if (i.product_id == id && !isPlus) {
+            } else temp.add(i)
+        }
+        createUpdateOrderModel(temp)
+    }
+
+    fun funQuantityMinus(productId: Int) {
+        val temp = mutableListOf<LineItem>()
+        for (i in orderItemList) {
+            if (i.product_id == productId) {
                 temp.add(
-                    UpdateLineItem(
+                    LineItem(
                         i.id,
                         i.product_id,
                         i.quantity - 1
                     )
                 )
-            } else {
-                temp.add(
-                    UpdateLineItem(
-                        i.id,
-                        i.product_id,
-                        i.quantity
-                    )
-                )
-            }
+            } else temp.add(i)
         }
+        createUpdateOrderModel(temp)
+    }
+
+    private fun createUpdateOrderModel(lineItemList: List<LineItem>) {
+        updateOrder = UpdateOrder(lineItemList)
+    }
+
+    private fun updateOrder() {
         launch {
-            repository.updateOrder(
-                IO,
-                currentOrder.id,
-                UpdateOrder(temp)
-            ).collect {
+            repository.updateOrder(IO, orderId, updateOrder).collect {
                 _updateOrderResponse.emit(it)
             }
         }
     }
 
-    fun orderComplete() {
-        val temp = mutableListOf<UpdateLineItem>()
-        for (i in currentOrder.line_items) {
-            temp.add(
-                UpdateLineItem(
-                    i.id,
-                    i.product_id,
-                    i.quantity
-                )
-            )
-        }
-        launch {
-            repository.updateOrder(
-                IO,
-                currentOrder.id,
-                UpdateOrder(
-                    temp,
-                    "completed"
-                )
-            ).collect {
-                _updateOrderResponse.emit(it)
+    fun setDataFromResponse(response: UpdateOrder) {
+        orderItemList = response.line_items as MutableList<LineItem>
+        createIdList()
+    }
+
+    fun totalPrice(): String {
+        var temp = 0
+        for (i in productInOrderList) {
+            temp += if (i.sale_price != "") {
+                i.sale_price.toInt() * i.quantity
+            } else {
+                i.regular_price.toInt() * i.quantity
             }
         }
+        return temp.toString()
+    }
+
+    fun orderComplete() {
+        val temp = UpdateOrder(
+            orderItemList,
+            "completed"
+        )
+        updateOrder = temp
+        updateOrder()
     }
 
 }

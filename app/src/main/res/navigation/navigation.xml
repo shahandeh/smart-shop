@@ -27,9 +27,6 @@
     <action
         android:id="@+id/action_global_detailFragment"
         app:destination="@id/detailFragment" />
-    <!--<action
-        android:id="@+id/action_global_categoryFragment"
-        app:destination="@id/categoryFragment" />-->
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.example.smartshop.ui.productlist.ProductListFragment"

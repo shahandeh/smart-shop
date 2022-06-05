@@ -12,7 +12,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.example.smartshop.R
-import com.example.smartshop.data.CurrentUser
 import com.example.smartshop.databinding.FragmentDetailBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.ImageRecyclerAdapter
@@ -34,8 +33,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.gone()
         binding = FragmentDetailBinding.bind(view)
-
-        Log.d("majid", "onViewCreated detail fragment: ${CurrentUser.user_id}")
 
         binding.buy.setOnClickListener {
             if (detailViewModel.orderIsEmpty) detailViewModel.createOrder()
@@ -59,6 +56,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                             }
 
                             is ResultWrapper.Failure -> {
+                                Log.d("majid", "onViewCreated: getProduct")
                                 hideBuyButton()
                                 binding.customView.onFail(it.message.toString())
                                 binding.customView.click {
@@ -83,6 +81,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                             }
 
                             is ResultWrapper.Failure -> {
+                                Log.d("majid", "onViewCreated: createOrder")
                                 hideBuyButton()
                                 binding.customView.onFail(it.message.toString())
                                 binding.customView.click {
@@ -107,6 +106,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                             }
 
                             is ResultWrapper.Failure -> {
+                                Log.d("majid", "onViewCreated: updateOrderResponse")
                                 hideBuyButton()
                                 binding.customView.onFail(it.message.toString())
                                 binding.customView.click {
@@ -143,6 +143,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     }
 
                     is ResultWrapper.Failure -> {
+                        Log.d("majid", "onViewCreated: getOrder")
                         hideBuyButton()
                         binding.customView.onFail(it.message.toString())
                         binding.customView.click {

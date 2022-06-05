@@ -20,14 +20,14 @@ class ProductListViewModel @Inject constructor(
     var isLoading = false
     var pageNumber = 1
 
-    private var _getProductListByOrder: MutableStateFlow<ResultWrapper<out List<Product>?>> =
+    private var _getProductListByOrder: MutableStateFlow<ResultWrapper<out List<Product>>> =
         MutableStateFlow(ResultWrapper.Loading)
-    val getProductListByOrder: StateFlow<ResultWrapper<out List<Product>?>> =
+    val getProductListByOrder: StateFlow<ResultWrapper<out List<Product>>> =
         _getProductListByOrder
 
-    private var _getProductListByCategory: MutableStateFlow<ResultWrapper<out List<Product>?>> =
+    private var _getProductListByCategory: MutableStateFlow<ResultWrapper<out List<Product>>> =
         MutableStateFlow(ResultWrapper.Loading)
-    val getProductListByCategory: StateFlow<ResultWrapper<out List<Product>?>> =
+    val getProductListByCategory: StateFlow<ResultWrapper<out List<Product>>> =
         _getProductListByCategory
 
     fun getProductListByOrder(page: Int, orderBy: String) {

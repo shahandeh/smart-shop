@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val repository: ShopRepository
-): ViewModel() {
+    private val repository: ShopRepository,
+) : ViewModel() {
 
     var param = ""
 

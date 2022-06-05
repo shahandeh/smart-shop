@@ -1,6 +1,8 @@
 package com.example.smartshop.di
 
 import com.example.smartshop.constant.BASE_URL
+import com.example.smartshop.data.IRemoteDataSource
+import com.example.smartshop.data.remote.RemoteDataSource
 import com.example.smartshop.data.remote.service.IShopApi
 import dagger.Module
 import dagger.Provides
@@ -12,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ShopNetworkModule {
+object ShopModule {
 
     @Singleton
     @Provides
@@ -33,10 +35,11 @@ object ShopNetworkModule {
         retrofit: Retrofit,
     ): IShopApi = retrofit.create(IShopApi::class.java)
 
-    val retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BASE_URL)
-        .build()
+    @Singleton
+    @Provides
+    @IRemoteDataSourceDependencyInjection
+    fun provideRemoteDataSource(
+        iShopApi: IShopApi
+    ): IRemoteDataSource = RemoteDataSource(iShopApi)
 
-    val service = retrofit.create(IShopApi::class.java)
 }

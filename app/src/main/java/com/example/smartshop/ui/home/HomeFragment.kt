@@ -3,7 +3,6 @@ package com.example.smartshop.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,12 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.smartshop.R
-import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.data.model.product.Image
-import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.databinding.FragmentHomeBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.DataModel
 import com.example.smartshop.ui.adapter.HomeListAdapter
 import com.example.smartshop.ui.adapter.ImageSliderAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,9 +28,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
     private lateinit var dateListAdapter: HomeListAdapter
     private lateinit var popularityListAdapter: HomeListAdapter
     private lateinit var ratedListAdapter: HomeListAdapter
-    private lateinit var dateRecyclerView: RecyclerView
-    private lateinit var popularityRecyclerView: RecyclerView
-    private lateinit var ratedRecyclerView: RecyclerView
     private lateinit var handler: Handler
     private lateinit var adapter: ImageSliderAdapter
 
@@ -42,9 +35,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
-        Log.d("majid", "onViewCreated home fragment: $user_id")
-
-        val runnable = Runnable { binding.viewPager2.currentItem = binding.viewPager2.currentItem + 1 }
+        val runnable =
+            Runnable { binding.viewPager2.currentItem = binding.viewPager2.currentItem + 1 }
 
         dateListAdapter = HomeListAdapter(this)
         popularityListAdapter = HomeListAdapter(this)
@@ -60,11 +52,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
         homeViewModel.getProductListByRating()
         homeViewModel.getImageSliderProduct()
 
-        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 handler.removeCallbacks(runnable)
-                handler.postDelayed(runnable , 3000)
+                handler.postDelayed(runnable, 3000)
             }
         })
 
@@ -80,11 +72,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
                             is ResultWrapper.Success -> {
                                 binding.dateCustomView.onSuccess()
                                 dateListAdapter.submitList(
-                                    productList(
-                                        it.value,
-                                        "جدیدترین محصولات",
-                                        "date"
-                                    )
+                                    homeViewModel.createDataList(it.value)
                                 )
                             }
 
@@ -110,11 +98,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
                             is ResultWrapper.Success -> {
                                 binding.popularityCustomView.onSuccess()
                                 popularityListAdapter.submitList(
-                                    productList(
-                                        it.value,
-                                        "پر بازدیدترین محصولات",
-                                        "popularity"
-                                    )
+                                    homeViewModel.createPopularityList(it.value)
                                 )
                             }
 
@@ -140,10 +124,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
                             is ResultWrapper.Success -> {
                                 binding.rateCustomView.onSuccess()
                                 ratedListAdapter.submitList(
-                                    productList(
-                                        it.value,
-                                        "بهترین محصولات",
-                                        "rating")
+                                    homeViewModel.createRatedList(it.value)
                                 )
                             }
 
@@ -191,12 +172,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
         }
         handler = Handler(Looper.myLooper()!!)
 
-
         adapter = ImageSliderAdapter(imageList, binding.viewPager2)
 
         binding.apply {
             viewPager2.adapter = adapter
-//        viewPager2.offscreenPageLimit = 3
             viewPager2.clipToPadding = false
             viewPager2.clipChildren = false
             viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
@@ -206,52 +185,24 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeClickListener {
 
     private fun listAdapterInit() {
         binding.apply {
-
-            dateRecyclerView = recyclerViewDate
-            dateRecyclerView.addItemDecoration(HomeItemDecoration(16))
-            dateRecyclerView.adapter = dateListAdapter
-            dateRecyclerView.adapter?.stateRestorationPolicy =
+            recyclerViewDate.addItemDecoration(HomeItemDecoration(16))
+            recyclerViewDate.adapter = dateListAdapter
+            recyclerViewDate.adapter?.stateRestorationPolicy =
                 RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-            popularityRecyclerView = recyclerViewPopularity
-            popularityRecyclerView.addItemDecoration(HomeItemDecoration(16))
-            popularityRecyclerView.adapter = popularityListAdapter
-            popularityRecyclerView.adapter?.stateRestorationPolicy =
+            recyclerViewPopularity.addItemDecoration(HomeItemDecoration(16))
+            recyclerViewPopularity.adapter = popularityListAdapter
+            recyclerViewPopularity.adapter?.stateRestorationPolicy =
                 RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-            ratedRecyclerView = recyclerViewRated
-            ratedRecyclerView.addItemDecoration(HomeItemDecoration(16))
-            ratedRecyclerView.adapter = ratedListAdapter
-            ratedRecyclerView.adapter?.stateRestorationPolicy =
+            recyclerViewRated.addItemDecoration(HomeItemDecoration(16))
+            recyclerViewRated.adapter = ratedListAdapter
+            recyclerViewRated.adapter?.stateRestorationPolicy =
                 RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         }
     }
 
-    private fun productList(list: List<Product>, title: String, order: String): List<DataModel> {
-        val temp = mutableListOf<DataModel>()
-        temp.add(
-            DataModel.Header(
-                title = title,
-                order = order
-            )
-        )
-
-        for (i in list) {
-            temp.add(
-                DataModel.Data(
-                    i
-                )
-            )
-        }
-
-        temp.add(
-            DataModel.Footer(
-                order = order
-            )
-        )
-        return temp
-    }
 
     private fun searchFragment() {
         val action = HomeFragmentDirections.actionGlobalSearchFragment()

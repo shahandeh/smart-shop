@@ -61,15 +61,15 @@ fun String.cleaner(): String {
         .replace("-", " ")
 }
 
-fun View.gone(){
+fun View.gone() {
     visibility = View.GONE
 }
 
-fun View.visible(){
+fun View.visible() {
     visibility = View.VISIBLE
 }
 
-fun ViewModel.launch(fn: suspend () -> Unit){
+fun ViewModel.launch(fn: suspend () -> Unit) {
     this.viewModelScope.launch {
         fn()
     }

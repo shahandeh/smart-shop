@@ -30,7 +30,6 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProductListBinding.bind(view)
 
-
         productListAdapter = ProductListAdapter {
             showDetail(it)
         }
@@ -70,9 +69,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                                     productListViewModel.pageNumber++
                                     productListViewModel.isLoading = false
                                     binding.customView.onSuccess()
-                                    resultWrapper.value?.let {
-                                        productListViewModel.cachedList.addAll(it)
-                                    }
+                                    productListViewModel.cachedList.addAll(resultWrapper.value)
                                     val pos = productListViewModel.cachedList.size
                                     productListAdapter.submitList(productListViewModel.cachedList)
                                     productListAdapter.notifyItemInserted(pos)
@@ -103,9 +100,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                                     productListViewModel.pageNumber++
                                     productListViewModel.isLoading = false
                                     binding.customView.onSuccess()
-                                    resultWrapper.value?.let {
-                                        productListViewModel.cachedList.addAll(it)
-                                    }
+                                    productListViewModel.cachedList.addAll(resultWrapper.value)
                                     val pos = productListViewModel.cachedList.size
                                     productListAdapter.submitList(productListViewModel.cachedList)
                                     productListAdapter.notifyItemInserted(pos)
@@ -118,7 +113,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
 
     }
 
-    private fun showDetail(id: String){
+    private fun showDetail(id: String) {
         val action = ProductListFragmentDirections.actionGlobalDetailFragment(id)
         findNavController().navigate(action)
     }

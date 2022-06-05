@@ -1,7 +1,6 @@
 package com.example.smartshop.ui.orderhistory
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentOrderHistoryBinding
-import com.example.smartshop.di.ShopNetworkModule
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.OrderHistoryAdapter
 import com.example.smartshop.ui.adapter.OrderHistoryItemDecoration
@@ -34,7 +32,6 @@ class OrderHistoryFragment : Fragment(R.layout.fragment_order_history) {
 
         binding.recyclerView.scrollListener { orderHistoryViewModel.getOrderHistory() }
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 orderHistoryViewModel.orderHistory.collect {
@@ -48,7 +45,6 @@ class OrderHistoryFragment : Fragment(R.layout.fragment_order_history) {
                             orderHistoryViewModel.pageNumber++
                             orderHistoryViewModel.isLoading = false
                             orderHistoryViewModel.cachedList.addAll(it.value)
-                            Log.d("majid", "OrderHistoryFragment: ${it.value}")
                             val pos = orderHistoryViewModel.cachedList.size
                             orderHistoryAdapter.submitList(orderHistoryViewModel.cachedList)
                             orderHistoryAdapter.notifyItemInserted(pos)
@@ -88,22 +84,6 @@ class OrderHistoryFragment : Fragment(R.layout.fragment_order_history) {
                 isScrolling = newState >= 1
             }
         })
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("majid", "OrderHistoryFragment onPause: ")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("majid", "OrderHistoryFragment onStop: ")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-//        orderHistoryViewModel.cachedList.clear()
-        Log.d("majid", "OrderHistoryFragment onDestroy: ")
     }
 
 }

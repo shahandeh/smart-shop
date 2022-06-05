@@ -1,10 +1,10 @@
 package com.example.smartshop.data.model.order
 
-class CreateOrder(
-    val line_items: List<CreateLineItem>,
+data class CreateOrder(
+    val line_items: List<CreateOrderLineItem>,
 )
 
-data class CreateLineItem(
+data class CreateOrderLineItem(
     val product_id: Int,
     val quantity: Int,
 )

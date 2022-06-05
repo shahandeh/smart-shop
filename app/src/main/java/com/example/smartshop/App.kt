@@ -1,4 +1,4 @@
-package com.example.smartshop.di
+package com.example.smartshop
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

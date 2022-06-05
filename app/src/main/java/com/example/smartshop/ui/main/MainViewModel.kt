@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: ShopRepository,
-    networkStatusTracker: NetworkStatusTracker
+    networkStatusTracker: NetworkStatusTracker,
 ) : ViewModel() {
 
     val status = networkStatusTracker.networkStatus.map(
