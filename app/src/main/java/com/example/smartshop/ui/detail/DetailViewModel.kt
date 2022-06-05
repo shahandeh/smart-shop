@@ -8,7 +8,6 @@ import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -49,7 +48,7 @@ class DetailViewModel @Inject constructor(
 
     fun getProduct(id: String) {
         launch {
-            repository.getProduct(id, IO).collect {
+            repository.getProduct(id).collect {
                 _getProduct.emit(it)
             }
         }
@@ -57,7 +56,7 @@ class DetailViewModel @Inject constructor(
 
     private fun getOrder() {
         launch {
-            repository.getOrderList(IO, 1, "pending", user_id, 1).collect {
+            repository.getOrderList(1, "pending", user_id, 1).collect {
                 _getOrder.emit(it)
             }
         }
@@ -76,7 +75,7 @@ class DetailViewModel @Inject constructor(
         )
 
         launch {
-            repository.createOrder(IO, user_id, createOrder).collect {
+            repository.createOrder(user_id, createOrder).collect {
                 _createOrder.emit(it)
             }
         }
@@ -94,7 +93,7 @@ class DetailViewModel @Inject constructor(
             createLineItem
         )
         launch {
-            repository.addToOrder(IO, order.id, updateOrder).collect {
+            repository.addToOrder(order.id, updateOrder).collect {
                 _updateOrderResponse.emit(it)
             }
         }

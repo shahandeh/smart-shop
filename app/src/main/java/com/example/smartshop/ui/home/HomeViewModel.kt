@@ -7,7 +7,6 @@ import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.DataModel
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -37,7 +36,7 @@ class HomeViewModel @Inject constructor(
 
     fun getProductListByDate() {
         launch {
-            repository.getProductListByOrder(1, "date", IO).collect {
+            repository.getProductListByOrder(1, "date").collect {
                 _getProductListByDate.emit(it)
             }
         }
@@ -45,7 +44,7 @@ class HomeViewModel @Inject constructor(
 
     fun getProductListByPopularity() {
         launch {
-            repository.getProductListByOrder(1, "popularity", IO).collect {
+            repository.getProductListByOrder(1, "popularity").collect {
                 _getProductListByPopularity.emit(it)
             }
         }
@@ -53,7 +52,7 @@ class HomeViewModel @Inject constructor(
 
     fun getProductListByRating() {
         launch {
-            repository.getProductListByOrder(1, "rating", IO).collect {
+            repository.getProductListByOrder(1, "rating").collect {
                 _getProductListByRating.emit(it)
             }
         }
@@ -61,7 +60,7 @@ class HomeViewModel @Inject constructor(
 
     fun getImageSliderProduct() {
         launch {
-            repository.getProduct("608", IO).collect {
+            repository.getProduct("608").collect {
                 _getImageSlider.emit(it)
             }
         }

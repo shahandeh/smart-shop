@@ -8,7 +8,6 @@ import com.example.smartshop.tracker.NetworkStatus
 import com.example.smartshop.tracker.NetworkStatusTracker
 import com.example.smartshop.tracker.map
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class MainViewModel @Inject constructor(
         _user
 
     suspend fun retrieveUser(id: String) {
-        repository.retrieveUser(Dispatchers.IO, id).collect {
+        repository.retrieveUser(id).collect {
             _user.emit(it)
         }
     }

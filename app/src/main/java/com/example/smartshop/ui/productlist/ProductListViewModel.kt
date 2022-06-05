@@ -6,7 +6,6 @@ import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -32,7 +31,7 @@ class ProductListViewModel @Inject constructor(
 
     fun getProductListByOrder(page: Int, orderBy: String) {
         launch {
-            repository.getProductListByOrder(page, orderBy, IO).collect {
+            repository.getProductListByOrder(page, orderBy).collect {
                 _getProductListByOrder.emit(it)
             }
         }
@@ -40,7 +39,7 @@ class ProductListViewModel @Inject constructor(
 
     fun getProductListByCategory(page: Int, category: String) {
         launch {
-            repository.getProductListByCategory(page, category, IO).collect {
+            repository.getProductListByCategory(page, category).collect {
                 _getProductListByCategory.emit(it)
             }
         }

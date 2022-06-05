@@ -7,7 +7,6 @@ import com.example.smartshop.data.model.order.GetOrder
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -32,7 +31,7 @@ class OrderHistoryViewModel @Inject constructor(
 
     fun getOrderHistory() {
         launch {
-            repository.getOrderList(IO, pageNumber, "completed", user_id, 10).collect {
+            repository.getOrderList(pageNumber, "completed", user_id, 10).collect {
                 _orderHistory.emit(it)
             }
         }

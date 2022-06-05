@@ -6,7 +6,6 @@ import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -25,7 +24,7 @@ class SearchViewModel @Inject constructor(
 
     fun searchProduct(param: String) {
         launch {
-            repository.searchProduct(param, IO).collect {
+            repository.searchProduct(param).collect {
                 _searchResult.emit(it)
             }
         }

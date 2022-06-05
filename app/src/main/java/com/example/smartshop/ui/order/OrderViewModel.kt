@@ -11,7 +11,6 @@ import com.example.smartshop.data.model.product.ProductInOrder
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -49,7 +48,6 @@ class OrderViewModel @Inject constructor(
     fun getOrder() {
         launch {
             repository.getOrderList(
-                IO,
                 1,
                 "pending",
                 user_id,
@@ -75,7 +73,7 @@ class OrderViewModel @Inject constructor(
 
     private fun getProductList(list: String) {
         launch {
-            repository.getOrderListByInclude(IO, list).collect {
+            repository.getOrderListByInclude(list).collect {
                 _productList.emit(it)
             }
         }
@@ -132,11 +130,12 @@ class OrderViewModel @Inject constructor(
 
     private fun createUpdateOrderModel(lineItemList: List<LineItem>) {
         updateOrder = UpdateOrder(lineItemList)
+        updateOrder()
     }
 
     private fun updateOrder() {
         launch {
-            repository.updateOrder(IO, orderId, updateOrder).collect {
+            repository.updateOrder(orderId, updateOrder).collect {
                 _updateOrderResponse.emit(it)
             }
         }

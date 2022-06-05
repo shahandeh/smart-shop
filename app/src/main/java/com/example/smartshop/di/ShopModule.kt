@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers.IO
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -41,5 +43,10 @@ object ShopModule {
     fun provideRemoteDataSource(
         iShopApi: IShopApi
     ): IRemoteDataSource = RemoteDataSource(iShopApi)
+
+    @Singleton
+    @Provides
+    @IoDispatcher
+    fun provideDispatcher(): CoroutineDispatcher = IO
 
 }

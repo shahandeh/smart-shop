@@ -7,7 +7,6 @@ import com.example.smartshop.data.model.customer.RetrieveCustomer
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -37,7 +36,7 @@ class UserViewModel @Inject constructor(
 
     private fun createUser(createCustomer: CreateCustomer) {
         launch {
-            repository.createUser(IO, createCustomer).collect {
+            repository.createUser(createCustomer).collect {
                 _user.emit(it)
             }
         }
@@ -45,7 +44,7 @@ class UserViewModel @Inject constructor(
 
     private fun retrieveUserList(userName: String) {
         launch {
-            repository.retrieveUserList(IO, userName).collect {
+            repository.retrieveUserList(userName).collect {
                 _userList.emit(it)
             }
         }
