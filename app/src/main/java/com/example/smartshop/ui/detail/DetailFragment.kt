@@ -1,8 +1,10 @@
 package com.example.smartshop.ui.detail
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,7 +16,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentDetailBinding
 import com.example.smartshop.safeapi.ResultWrapper
+import com.example.smartshop.ui.adapter.DetailReviewListAdapter
 import com.example.smartshop.ui.adapter.ImageRecyclerAdapter
+import com.example.smartshop.ui.adapter.OrderHistoryItemDecoration
 import com.example.smartshop.util.cleaner
 import com.example.smartshop.util.gone
 import com.example.smartshop.util.visible
@@ -29,16 +33,25 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val args by navArgs<DetailFragmentArgs>()
     private val detailViewModel by viewModels<DetailViewModel>()
     private lateinit var binding: FragmentDetailBinding
+    private lateinit var detailReviewListAdapter: DetailReviewListAdapter
+    @RequiresApi(Build.VERSION_CODES.N)
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.gone()
         binding = FragmentDetailBinding.bind(view)
+        detailViewModel.productId = args.id
+
+        detailReviewListAdapter = DetailReviewListAdapter()
+        binding.reviewRecyclerView.adapter = detailReviewListAdapter
+        binding.reviewRecyclerView.addItemDecoration(OrderHistoryItemDecoration(8))
 
         binding.buy.setOnClickListener {
             if (detailViewModel.orderIsEmpty) detailViewModel.createOrder()
             else detailViewModel.addToOrder()
         }
-        detailViewModel.getProduct(args.id)
+        detailViewModel.getProduct()
+        detailViewModel.getProductReviewList()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -56,11 +69,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                             }
 
                             is ResultWrapper.Failure -> {
-                                Log.d("majid", "onViewCreated: getProduct")
                                 hideBuyButton()
                                 binding.customView.onFail(it.message.toString())
                                 binding.customView.click {
-                                    detailViewModel.getProduct(args.id)
+                                    detailViewModel.getOrder()
                                 }
                             }
                         }
@@ -81,11 +93,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                             }
 
                             is ResultWrapper.Failure -> {
-                                Log.d("majid", "onViewCreated: createOrder")
                                 hideBuyButton()
                                 binding.customView.onFail(it.message.toString())
                                 binding.customView.click {
-                                    detailViewModel.getProduct(args.id)
+                                    detailViewModel.getOrder()
                                 }
                             }
                         }
@@ -106,12 +117,28 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                             }
 
                             is ResultWrapper.Failure -> {
-                                Log.d("majid", "onViewCreated: updateOrderResponse")
                                 hideBuyButton()
                                 binding.customView.onFail(it.message.toString())
                                 binding.customView.click {
-                                    detailViewModel.getProduct(args.id)
+                                    detailViewModel.getOrder()
                                 }
+                            }
+                        }
+                    }
+                }
+
+                launch {
+                    detailViewModel.productReviewList.collect {
+                        when (it) {
+                            ResultWrapper.Loading -> {
+                            }
+                            is ResultWrapper.Success -> {
+                                detailViewModel.reviewList = it.value
+                                detailReviewListAdapter.submitList(detailViewModel.createReviewDataList())
+                                binding.reviewRecyclerView.adapter?.notifyDataSetChanged()
+                            }
+                            is ResultWrapper.Failure -> {
+                                detailViewModel.getOrder()
                             }
                         }
                     }
@@ -143,11 +170,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     }
 
                     is ResultWrapper.Failure -> {
-                        Log.d("majid", "onViewCreated: getOrder")
                         hideBuyButton()
                         binding.customView.onFail(it.message.toString())
                         binding.customView.click {
-                            detailViewModel.getProduct(args.id)
+                            detailViewModel.getOrder()
                         }
                     }
                 }

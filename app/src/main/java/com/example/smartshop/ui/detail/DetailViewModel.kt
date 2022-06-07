@@ -5,7 +5,9 @@ import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.order.*
 import com.example.smartshop.data.model.product.Product
+import com.example.smartshop.data.model.review.Review
 import com.example.smartshop.safeapi.ResultWrapper
+import com.example.smartshop.ui.adapter.ReviewDataModel
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +23,8 @@ class DetailViewModel @Inject constructor(
     lateinit var order: GetOrder
     var orderIsEmpty = false
     var orderContainProduct = false
+    var productId = ""
+    lateinit var reviewList: List<Review>
 
     private var _getProduct: MutableStateFlow<ResultWrapper<out Product>> =
         MutableStateFlow(ResultWrapper.Loading)
@@ -42,22 +46,35 @@ class DetailViewModel @Inject constructor(
     val updateOrderResponse: StateFlow<ResultWrapper<out UpdateOrder>> =
         _updateOrderResponse
 
+    private var _productReviewList: MutableStateFlow<ResultWrapper<out List<Review>>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val productReviewList: StateFlow<ResultWrapper<out List<Review>>> =
+        _productReviewList
+
     init {
         getOrder()
     }
 
-    fun getProduct(id: String) {
+    fun getProduct() {
         launch {
-            repository.getProduct(id).collect {
+            repository.getProduct(productId).collect {
                 _getProduct.emit(it)
             }
         }
     }
 
-    private fun getOrder() {
+    fun getOrder() {
         launch {
             repository.getOrderList(1, "pending", user_id, 1).collect {
                 _getOrder.emit(it)
+            }
+        }
+    }
+
+    fun getProductReviewList() {
+        launch {
+            repository.getProductReviewList(productId.toInt()).collect {
+                _productReviewList.emit(it)
             }
         }
     }
@@ -97,6 +114,39 @@ class DetailViewModel @Inject constructor(
                 _updateOrderResponse.emit(it)
             }
         }
+    }
+
+    fun createReviewDataList(): List<ReviewDataModel> {
+        val temp = mutableListOf<ReviewDataModel>()
+        if (reviewList.size < 3) {
+            for (i in reviewList) {
+                temp.add(
+                    ReviewDataModel.Data(
+                        i.date_created,
+                        i.product_id,
+                        i.review,
+                        i.reviewer
+                    )
+                )
+            }
+        } else {
+            for (i in 0 until 3) {
+                temp.add(
+                    ReviewDataModel.Data(
+                        reviewList[i].date_created,
+                        reviewList[i].product_id,
+                        reviewList[i].review,
+                        reviewList[i].reviewer
+                    )
+                )
+            }
+            temp.add(
+                ReviewDataModel.Footer(
+                    reviewList[0].product_id
+                )
+            )
+        }
+        return temp
     }
 
 }

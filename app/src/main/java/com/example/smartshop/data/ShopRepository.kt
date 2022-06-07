@@ -13,14 +13,14 @@ import javax.inject.Singleton
 @Singleton
 class ShopRepository @Inject constructor(
     @IRemoteDataSourceDependencyInjection private val remoteDataSource: IRemoteDataSource,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) {
     fun getProductListByOrder(page: Int, orderBy: String) =
         safeApiCall(dispatcher) { remoteDataSource.getProductListByOrder(page, orderBy) }
 
     fun getProductListByCategory(
         page: Int,
-        category: String
+        category: String,
     ) =
         safeApiCall(dispatcher) { remoteDataSource.getProductListByCategory(page, category) }
 
@@ -63,5 +63,8 @@ class ShopRepository @Inject constructor(
 
     fun retrieveUserList(userName: String) =
         safeApiCall(dispatcher) { remoteDataSource.retrieveUserList(userName) }
+
+    fun getProductReviewList(productId: Int) =
+        safeApiCall(dispatcher) { remoteDataSource.getProductReviewList(productId) }
 
 }

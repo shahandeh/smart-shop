@@ -8,8 +8,7 @@ import com.example.smartshop.data.model.order.GetOrder
 import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.data.model.product.Product
-import dagger.Binds
-import dagger.Provides
+import com.example.smartshop.data.model.review.Review
 import retrofit2.Response
 
 interface IRemoteDataSource {
@@ -47,5 +46,7 @@ interface IRemoteDataSource {
     suspend fun retrieveUser(id: String): Response<RetrieveCustomer>
 
     suspend fun retrieveUserList(userName: String): Response<List<RetrieveCustomer>>
+
+    suspend fun getProductReviewList(productId: Int): Response<List<Review>>
 
 }

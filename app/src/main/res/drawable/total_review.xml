@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/ic_back_arrow"/>
+            <item>
+                <shape android:shape="ring"
+                    android:useLevel="false"
+                    android:thicknessRatio="32"
+                    android:tint="?android:textColorHint">
+                    <solid android:color="?android:textColorHint" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

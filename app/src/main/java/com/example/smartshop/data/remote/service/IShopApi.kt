@@ -9,6 +9,7 @@ import com.example.smartshop.data.model.order.GetOrder
 import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.data.model.product.Product
+import com.example.smartshop.data.model.review.Review
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -111,5 +112,12 @@ interface IShopApi {
         @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
         @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
     ): Response<List<RetrieveCustomer>>
+
+    @GET("wp-json/wc/v3/products/reviews")
+    suspend fun getProductReviewList(
+        @Query("product") productId: Int,
+        @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
+    ): Response<List<Review>>
 
 }

@@ -43,4 +43,5 @@ class RemoteDataSource @Inject constructor(
 
     override suspend fun retrieveUserList(userName: String) = iShopApi.retrieveUserList(userName)
 
+    override suspend fun getProductReviewList(productId: Int) = iShopApi.getProductReviewList(productId)
 }

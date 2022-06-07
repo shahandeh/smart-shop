@@ -19,4 +19,6 @@
     <string name="order_complete">تایید خرید</string>
     <string name="sale">تومان تخفیف</string>
     <string name="order">Order</string>
+    <string name="show_all">مشاهده همه</string>
+    <string name="customer_review">ٔدیدگاه کاربران</string>
 </resources>
