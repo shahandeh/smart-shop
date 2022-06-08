@@ -3,6 +3,7 @@ package com.example.smartshop.util
 import android.graphics.drawable.Drawable
 import android.icu.text.SimpleDateFormat
 import android.os.Build
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
@@ -103,6 +104,6 @@ fun String.timeCalc(): String{
     return temp
 }
 
-//fun log(input: String){
-//    Log.d("majid", "log: $input")
-//}
+fun log(input: String){
+    Log.d("majid", "log: $input")
+}

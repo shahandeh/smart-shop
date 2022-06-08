@@ -1,11 +1,9 @@
 package com.example.smartshop.data.model.review
 
-data class Review(
-    val id: Int,
-    val date_created: String,
+data class CreateReview(
     val product_id: Int,
     val review: String,
     val reviewer: String,
-    val rating: Int,
     val reviewer_email: String,
+    val rating: Int,
 )

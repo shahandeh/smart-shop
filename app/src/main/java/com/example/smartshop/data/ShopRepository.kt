@@ -3,6 +3,7 @@ package com.example.smartshop.data
 import com.example.smartshop.data.model.customer.CreateCustomer
 import com.example.smartshop.data.model.order.CreateOrder
 import com.example.smartshop.data.model.order.UpdateOrder
+import com.example.smartshop.data.model.review.CreateReview
 import com.example.smartshop.di.IRemoteDataSourceDependencyInjection
 import com.example.smartshop.di.IoDispatcher
 import com.example.smartshop.safeapi.safeApiCall
@@ -66,5 +67,18 @@ class ShopRepository @Inject constructor(
 
     fun getProductReviewList(productId: Int) =
         safeApiCall(dispatcher) { remoteDataSource.getProductReviewList(productId) }
+
+    fun createReview(createReview: CreateReview) =
+        safeApiCall(dispatcher) { remoteDataSource.createReview(createReview) }
+
+    fun removeReview(reviewId: Int) =
+        safeApiCall(dispatcher) { remoteDataSource.removeReview(reviewId) }
+
+    fun updateReview(
+        reviewId: Int,
+        rating: Int,
+        review: String,
+        reviewer: String
+    ) = safeApiCall(dispatcher) { remoteDataSource.updateReview(reviewId, rating, review, reviewer) }
 
 }

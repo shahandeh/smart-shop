@@ -107,11 +107,51 @@
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/suggest_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/customer_review"
                 tools:listitem="@layout/review_sample" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/suggest_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/review_recycler_view">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layoutDirection="rtl">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/your_review_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_sms" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/vazirmatn_regular"
+                        android:text="@string/write_your_review"
+                        android:textColor="?android:textColorPrimary" />
+
+                </LinearLayout>
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_left_arrow" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.example.smartshop.ui.customview.ShopCustomView
                 android:id="@+id/custom_view"

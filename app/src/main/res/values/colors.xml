@@ -34,5 +34,9 @@
     <color name="dark_theme_hint_text">#80FFFFFF</color>
     <color name="dark_theme_dividers">#1FFFFFFF</color>
 
+    <color name="green">#30FF00</color>
+    <color name="yellow">#FFC900</color>
+    <color name="red">#FF0000</color>
+
 
 </resources>

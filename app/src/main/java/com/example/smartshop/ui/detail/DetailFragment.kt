@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.example.smartshop.R
@@ -29,27 +30,32 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+@RequiresApi(Build.VERSION_CODES.N)
 class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val args by navArgs<DetailFragmentArgs>()
     private val detailViewModel by viewModels<DetailViewModel>()
     private lateinit var binding: FragmentDetailBinding
     private lateinit var detailReviewListAdapter: DetailReviewListAdapter
-    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.gone()
         binding = FragmentDetailBinding.bind(view)
+
         detailViewModel.productId = args.id
 
-        detailReviewListAdapter = DetailReviewListAdapter()
-        binding.reviewRecyclerView.adapter = detailReviewListAdapter
-        binding.reviewRecyclerView.addItemDecoration(OrderHistoryItemDecoration(8))
+        detailReviewListAdapterInit()
+
+        binding.suggestCard.setOnClickListener {
+            val action = DetailFragmentDirections.actionGlobalCreateReviewFragment(detailViewModel.productId, null)
+            findNavController().navigate(action)
+        }
 
         binding.buy.setOnClickListener {
             if (detailViewModel.orderIsEmpty) detailViewModel.createOrder()
             else detailViewModel.addToOrder()
         }
+
         detailViewModel.getProduct()
         detailViewModel.getProductReviewList()
 
@@ -145,6 +151,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 }
             }
         }
+    }
+
+    private fun detailReviewListAdapterInit() {
+        detailReviewListAdapter = DetailReviewListAdapter{
+            showReviewList(it)
+        }
+        binding.reviewRecyclerView.adapter = detailReviewListAdapter
+        binding.reviewRecyclerView.addItemDecoration(OrderHistoryItemDecoration(8))
+    }
+
+    private fun showReviewList(productId: String) {
+        val action = DetailFragmentDirections.actionGlobalReviewListFragment(productId)
+        findNavController().navigate(action)
     }
 
     private fun CoroutineScope.collectOrder() {

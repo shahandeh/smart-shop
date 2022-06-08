@@ -69,4 +69,31 @@
         android:name="com.example.smartshop.ui.order.OrderFragment"
         android:label="fragment_order"
         tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/createReviewFragment"
+        android:name="com.example.smartshop.ui.createreview.CreateReviewFragment"
+        android:label="fragment_create_review"
+        tools:layout="@layout/fragment_create_review" >
+        <argument
+            android:name="productId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="reviewId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_createReviewFragment"
+        app:destination="@id/createReviewFragment"
+        app:popUpTo="@id/navigation" />
+    <fragment
+        android:id="@+id/reviewListFragment"
+        android:name="com.example.smartshop.ui.reviewlist.ReviewListFragment"
+        android:label="fragment_review_list"
+        tools:layout="@layout/fragment_review_list" >
+        <argument
+            android:name="productId"
+            app:argType="string" />
+    </fragment><action android:id="@+id/action_global_reviewListFragment" app:destination="@id/reviewListFragment"/>
 </navigation>

@@ -9,6 +9,9 @@ import com.example.smartshop.data.model.order.GetOrder
 import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.data.model.product.Product
+import com.example.smartshop.data.model.review.CreateReview
+import com.example.smartshop.data.model.review.CreateReviewResponse
+import com.example.smartshop.data.model.review.RemoveReviewResponse
 import com.example.smartshop.data.model.review.Review
 import retrofit2.Response
 import retrofit2.http.*
@@ -119,5 +122,29 @@ interface IShopApi {
         @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
         @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
     ): Response<List<Review>>
+
+    @POST("wp-json/wc/v3/products/reviews")
+    suspend fun createReview(
+        @Body createReview: CreateReview,
+        @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
+    ): Response<CreateReviewResponse>
+
+    @DELETE("wp-json/wc/v3/products/reviews/{id}")
+    suspend fun removeReview(
+        @Path("id") reviewId: Int,
+        @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
+    ): Response<RemoveReviewResponse>
+
+    @PUT("wp-json/wc/v3/products/reviews/{id}")
+    suspend fun updateReview(
+        @Path("id") reviewId: Int,
+        @Query ("rating") rating: Int,
+        @Query ("review") review: String,
+        @Query ("reviewer") reviewer: String,
+        @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
+    ): Response<CreateReviewResponse>
 
 }

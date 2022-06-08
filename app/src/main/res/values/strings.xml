@@ -21,4 +21,26 @@
     <string name="order">Order</string>
     <string name="show_all">مشاهده همه</string>
     <string name="customer_review">ٔدیدگاه کاربران</string>
+    <string name="write_your_review">دیدگاه خود را درباره این کالا بنویسید</string>
+    <string name="very_bad">خیلی بد</string>
+    <string name="bad">بد</string>
+    <string name="normal">معمولی</string>
+    <string name="good">خوب</string>
+    <string name="perfect">عالی</string>
+    <string name="fill_star_field">لطفا موارد مشخص شده با ستاره را پر نمایید!</string>
+    <string name="your_review_with_id">نظر شما با موفقیت با شماره</string>
+    <string name="submitted">ثبت شد</string>
+    <string name="not_suggesting">توصیه می‌کنم</string>
+    <string name="suggesting">توصیه می‌کنم</string>
+    <string name="not_sure">مطمئن نیستم</string>
+    <string name="create_your_review">دیدگاه خود را شرح دهید</string>
+    <string name="review_title">عنوان نظر</string>
+    <string name="positive_point">نقاط قوت</string>
+    <string name="negative_point">نقاط ضعف</string>
+    <string name="review_body">متن نظر *</string>
+    <string name="send_review_as_unknown">ارسال دیدگاه به صورت ناشناس</string>
+    <string name="submit_review">ثبت دیدگاه</string>
+    <string name="submin_review_is_meaning">ثبت دیدگاه, به معنی موافقت با</string>
+    <string name="woocommerce_rule">قوانین ووکامرز</string>
+    <string name="is">است.</string>
 </resources>

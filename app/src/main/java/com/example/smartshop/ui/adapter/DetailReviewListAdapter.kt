@@ -14,7 +14,7 @@ import com.example.smartshop.util.timeCalc
 import com.google.android.material.textview.MaterialTextView
 
 @RequiresApi(Build.VERSION_CODES.N)
-class DetailReviewListAdapter :
+class DetailReviewListAdapter (private val fn: (productId: String) -> Unit):
     ListAdapter<ReviewDataModel, DetailReviewListAdapter.DetailReviewViewHolder>(
         DetailReviewCallback()) {
 
@@ -24,10 +24,9 @@ class DetailReviewListAdapter :
         fun bind(item: ReviewDataModel) {
             when (item) {
                 is ReviewDataModel.Data -> data(item)
-                is ReviewDataModel.Footer -> footer()
+                is ReviewDataModel.Footer -> footer(item)
             }
         }
-
 
         fun data(dataModel: ReviewDataModel.Data) {
             itemView.apply {
@@ -35,12 +34,12 @@ class DetailReviewListAdapter :
                 findViewById<MaterialTextView>(R.id.review_reviewer).text = dataModel.reviewer
                 findViewById<MaterialTextView>(R.id.review_date).text =
                     dataModel.date_created.timeCalc()
-
+                itemView.setOnClickListener { fn(dataModel.product_id.toString()) }
             }
         }
 
-        private fun footer() {
-
+        private fun footer(dataModel: ReviewDataModel.Footer) {
+            itemView.setOnClickListener { fn(dataModel.product_id.toString()) }
         }
     }
 

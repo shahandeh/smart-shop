@@ -14,21 +14,34 @@
         <entry key="app/src/main/res/drawable/ic_back_arrow.xml" value="0.1495" />
         <entry key="app/src/main/res/drawable/ic_circle.xml" value="0.1495" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.271" />
         <entry key="app/src/main/res/drawable/ic_left_arrow.xml" value="0.2795" />
         <entry key="app/src/main/res/drawable/ic_minus.xml" value="0.179" />
         <entry key="app/src/main/res/drawable/ic_plus_selected.xml" value="0.179" />
         <entry key="app/src/main/res/drawable/ic_plus_unselected.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_point.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/ic_right_arrow.xml" value="0.248" />
+        <entry key="app/src/main/res/drawable/ic_sms.xml" value="0.248" />
+        <entry key="app/src/main/res/drawable/ic_thumb_down.xml" value="0.203" />
+        <entry key="app/src/main/res/drawable/ic_thumb_down_unselected.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/ic_thumb_up.xml" value="0.203" />
+        <entry key="app/src/main/res/drawable/ic_thumb_up_unselected.xml" value="0.248" />
+        <entry key="app/src/main/res/drawable/ic_thumbs_up_down.xml" value="0.203" />
+        <entry key="app/src/main/res/drawable/ic_thumbs_up_down_unselected.xml" value="0.248" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/minu_sign_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/plus_sign_selector.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/test.xml" value="0.203" />
         <entry key="app/src/main/res/drawable/total_review.xml" value="0.1495" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/custom_view_layout.xml" value="0.36354166666666665" />
-        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.22685185185185186" />
+        <entry key="app/src/main/res/layout/fragment_create_review.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_create_review_actionbar.xml" value="0.36354166666666665" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_order_history.xml" value="0.36354166666666665" />
+        <entry key="app/src/main/res/layout/fragment_review_list.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_user.xml" value="0.34183673469387754" />
         <entry key="app/src/main/res/layout/home_product_list_sample.xml" value="0.36354166666666665" />
@@ -38,6 +51,8 @@
         <entry key="app/src/main/res/layout/order_sample.xml" value="0.29074074074074074" />
         <entry key="app/src/main/res/layout/product_list_sample.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/reveiw_footer_sample.xml" value="0.36354166666666665" />
+        <entry key="app/src/main/res/layout/review_custom_view.xml" value="0.36354166666666665" />
+        <entry key="app/src/main/res/layout/review_list_sample.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/review_sample.xml" value="0.4528735632183908" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.24064171122994651" />

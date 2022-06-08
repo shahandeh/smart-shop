@@ -1,5 +1,6 @@
 package com.example.smartshop.data
 
+import com.example.smartshop.BuildConfig
 import com.example.smartshop.data.model.customer.CreateCustomer
 import com.example.smartshop.data.model.customer.RetrieveCustomer
 import com.example.smartshop.data.model.order.CreateOrder
@@ -8,8 +9,13 @@ import com.example.smartshop.data.model.order.GetOrder
 import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.data.model.product.Product
+import com.example.smartshop.data.model.review.CreateReview
+import com.example.smartshop.data.model.review.CreateReviewResponse
+import com.example.smartshop.data.model.review.RemoveReviewResponse
 import com.example.smartshop.data.model.review.Review
 import retrofit2.Response
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface IRemoteDataSource {
 
@@ -48,5 +54,16 @@ interface IRemoteDataSource {
     suspend fun retrieveUserList(userName: String): Response<List<RetrieveCustomer>>
 
     suspend fun getProductReviewList(productId: Int): Response<List<Review>>
+
+    suspend fun createReview(createReview: CreateReview): Response<CreateReviewResponse>
+
+    suspend fun removeReview(reviewId: Int): Response<RemoveReviewResponse>
+
+    suspend fun updateReview(
+        reviewId: Int,
+        rating: Int,
+        review: String,
+        reviewer: String,
+    ): Response<CreateReviewResponse>
 
 }
