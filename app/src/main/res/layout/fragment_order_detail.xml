@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.orderdetail.OrderDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/first_name_text"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/first_name"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toTopOf="@id/last_name_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/first_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/last_name"
+            app:layout_constraintEnd_toStartOf="@id/first_name_text"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="نام گیرنده" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/last_name_text"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/last_name"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toTopOf="@id/order_id_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_name_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/order_id"
+            app:layout_constraintEnd_toStartOf="@id/last_name_text"
+            app:layout_constraintTop_toBottomOf="@id/first_name"
+            tools:text="نام خانوادگی" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/order_id_text"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/order_id"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toTopOf="@id/price_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/last_name_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/price"
+            app:layout_constraintEnd_toStartOf="@id/order_id_text"
+            app:layout_constraintTop_toBottomOf="@id/last_name"
+            tools:text="شماره سبد" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price_text"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/price"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toTopOf="@id/discount_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/order_id_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/discount"
+            app:layout_constraintEnd_toStartOf="@id/price_text"
+            app:layout_constraintTop_toBottomOf="@id/order_id"
+            tools:text="قیمت" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/discount_text"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/discount"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toTopOf="@id/final_price_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/final_price"
+            app:layout_constraintEnd_toStartOf="@id/discount_text"
+            app:layout_constraintTop_toBottomOf="@id/price"
+            tools:text="تخفیف" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/final_price_text"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/final_price"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toTopOf="@id/coupon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/discount_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/final_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/coupon_code"
+            app:layout_constraintEnd_toStartOf="@id/final_price_text"
+            app:layout_constraintTop_toBottomOf="@id/discount"
+            tools:text="قیمت نهایی" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/apply_coupon"
+            app:layout_constraintBottom_toTopOf="@id/done"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/final_price_text" />
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/coupon_code"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/done"
+            android:hint="@string/abcdefg"
+            app:layout_constraintEnd_toStartOf="@id/coupon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/final_price" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@string/buying"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.example.smartshop.ui.customview.ShopCustomView
+        android:id="@+id/custom_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

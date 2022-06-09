@@ -5,9 +5,7 @@ import com.example.smartshop.data.model.customer.CreateCustomer
 import com.example.smartshop.data.model.order.CreateOrder
 import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.model.review.CreateReview
-import com.example.smartshop.data.model.review.RemoveReviewResponse
 import com.example.smartshop.data.remote.service.IShopApi
-import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -64,5 +62,12 @@ class RemoteDataSource @Inject constructor(
         review: String,
         reviewer: String,
     ) = iShopApi.updateReview(reviewId, rating, review, reviewer)
+
+    override suspend fun setCoupon(
+        orderId: Int,
+        coupon: UpdateOrder,
+    ) = iShopApi.setCoupon(orderId, coupon)
+
+    override suspend fun validateCoupon(id: String) = iShopApi.validateCoupon(id)
 
 }

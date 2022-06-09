@@ -43,4 +43,16 @@
     <string name="submin_review_is_meaning">ثبت دیدگاه, به معنی موافقت با</string>
     <string name="woocommerce_rule">قوانین ووکامرز</string>
     <string name="is">است.</string>
+    <string name="coupon_code">کد تخفیف</string>
+    <string name="submit_coupon">ثبت کد تخفیف</string>
+    <string name="abcdefg">ABCDEFG</string>
+    <string name="your_request_status_is_complete">سبد خرید شما با موفقیت ثبت شد</string>
+    <string name="coupon_added">کد تخفیف با موفقیت اعمال شد</string>
+    <string name="coupon_code_already_used">کد تخفیف تکراری می‌باشد!</string>
+    <string name="order_id">شماره سبد</string>
+    <string name="price">قیمت</string>
+    <string name="discount">تخفیف</string>
+    <string name="final_price">قیمت نهایی</string>
+    <string name="apply_coupon">اعمال کد تخفیف</string>
+    <string name="buying">انجام خرید</string>
 </resources>

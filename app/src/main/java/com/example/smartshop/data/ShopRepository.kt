@@ -78,7 +78,20 @@ class ShopRepository @Inject constructor(
         reviewId: Int,
         rating: Int,
         review: String,
-        reviewer: String
-    ) = safeApiCall(dispatcher) { remoteDataSource.updateReview(reviewId, rating, review, reviewer) }
+        reviewer: String,
+    ) = safeApiCall(dispatcher) {
+        remoteDataSource.updateReview(reviewId,
+            rating,
+            review,
+            reviewer)
+    }
+
+    fun setCoupon(
+        orderId: Int,
+        coupon: UpdateOrder,
+    ) = safeApiCall(dispatcher) { remoteDataSource.setCoupon(orderId, coupon) }
+
+    suspend fun validateCoupon(id: String) =
+        safeApiCall(dispatcher) { remoteDataSource.validateCoupon(id) }
 
 }

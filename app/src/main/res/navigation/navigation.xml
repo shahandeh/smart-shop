@@ -96,4 +96,13 @@
             android:name="productId"
             app:argType="string" />
     </fragment><action android:id="@+id/action_global_reviewListFragment" app:destination="@id/reviewListFragment"/>
+    <fragment
+        android:id="@+id/orderDetailFragment"
+        android:name="com.example.smartshop.ui.orderdetail.OrderDetailFragment"
+        android:label="fragment_order_detail"
+        tools:layout="@layout/fragment_order_detail" />
+    <action
+        android:id="@+id/action_global_orderDetailFragment"
+        app:destination="@id/orderDetailFragment"
+        app:popUpTo="@id/navigation" />
 </navigation>

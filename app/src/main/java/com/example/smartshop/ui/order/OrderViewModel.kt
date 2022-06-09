@@ -6,6 +6,7 @@ import com.example.smartshop.data.ShopRepository
 import com.example.smartshop.data.model.order.GetOrder
 import com.example.smartshop.data.model.order.LineItem
 import com.example.smartshop.data.model.order.UpdateOrder
+import com.example.smartshop.data.model.order.UpdateOrderResponse
 import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.data.model.product.ProductInOrder
 import com.example.smartshop.safeapi.ResultWrapper
@@ -36,14 +37,10 @@ class OrderViewModel @Inject constructor(
     val productList: StateFlow<ResultWrapper<out List<Product>>> =
         _productList
 
-    private var _updateOrderResponse: MutableStateFlow<ResultWrapper<out UpdateOrder>> =
+    private var _updateOrderResponse: MutableStateFlow<ResultWrapper<out UpdateOrderResponse>> =
         MutableStateFlow(ResultWrapper.Loading)
-    val updateOrderResponse: StateFlow<ResultWrapper<out UpdateOrder>> =
+    val updateOrderResponse: StateFlow<ResultWrapper<out UpdateOrderResponse>> =
         _updateOrderResponse
-
-    init {
-        getOrder()
-    }
 
     fun getOrder() {
         launch {
@@ -141,7 +138,7 @@ class OrderViewModel @Inject constructor(
         }
     }
 
-    fun setDataFromResponse(response: UpdateOrder) {
+    fun setDataFromResponse(response: UpdateOrderResponse) {
         orderItemList = response.line_items as MutableList<LineItem>
         createIdList()
     }
@@ -156,15 +153,6 @@ class OrderViewModel @Inject constructor(
             }
         }
         return temp.toString()
-    }
-
-    fun orderComplete() {
-        val temp = UpdateOrder(
-            orderItemList,
-            "completed"
-        )
-        updateOrder = temp
-        updateOrder()
     }
 
 }

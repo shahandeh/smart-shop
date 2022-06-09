@@ -1,12 +1,10 @@
 package com.example.smartshop.data.remote.service
 
 import com.example.smartshop.BuildConfig
+import com.example.smartshop.data.model.coupon.ValidateCouponResponse
 import com.example.smartshop.data.model.customer.CreateCustomer
 import com.example.smartshop.data.model.customer.RetrieveCustomer
-import com.example.smartshop.data.model.order.CreateOrder
-import com.example.smartshop.data.model.order.CreateOrderResponse
-import com.example.smartshop.data.model.order.GetOrder
-import com.example.smartshop.data.model.order.UpdateOrder
+import com.example.smartshop.data.model.order.*
 import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.data.model.review.CreateReview
@@ -76,7 +74,7 @@ interface IShopApi {
         @Body updateOrder: UpdateOrder,
         @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
         @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
-    ): Response<UpdateOrder>
+    ): Response<UpdateOrderResponse>
 
     @GET("wp-json/wc/v3/orders")
     suspend fun getOrderList(
@@ -140,11 +138,26 @@ interface IShopApi {
     @PUT("wp-json/wc/v3/products/reviews/{id}")
     suspend fun updateReview(
         @Path("id") reviewId: Int,
-        @Query ("rating") rating: Int,
-        @Query ("review") review: String,
-        @Query ("reviewer") reviewer: String,
+        @Query("rating") rating: Int,
+        @Query("review") review: String,
+        @Query("reviewer") reviewer: String,
         @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
         @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
     ): Response<CreateReviewResponse>
+
+    @PUT("wp-json/wc/v3/orders/{id}")
+    suspend fun setCoupon(
+        @Path("id") orderId: Int,
+        @Body updateOrder: UpdateOrder,
+        @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
+    ): Response<UpdateOrderResponse>
+
+    @GET("/wp-json/wc/v3/coupons")
+    suspend fun validateCoupon(
+        @Query("code") id: String,
+        @Query("consumer_key") consumer_key: String = BuildConfig.CONSUMER_KEY,
+        @Query("consumer_secret") consumer_secret: String = BuildConfig.CONSUMER_SECRET,
+    ): Response<List<ValidateCouponResponse>>
 
 }

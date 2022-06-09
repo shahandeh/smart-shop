@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/bottom_view"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_view_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/bottom_view"
+        android:id="@+id/bottom_view_second"
         style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -39,20 +39,21 @@
         android:id="@+id/order_total_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/vazirmatn_regular"
         android:layout_marginStart="8dp"
         android:text="@string/irr"
-        app:layout_constraintBottom_toBottomOf="@id/bottom_view"
-        app:layout_constraintStart_toStartOf="@id/bottom_view"
-        app:layout_constraintTop_toTopOf="@id/bottom_view" />
+        app:layout_constraintBottom_toBottomOf="@id/bottom_view_second"
+        app:layout_constraintStart_toStartOf="@id/bottom_view_second"
+        app:layout_constraintTop_toTopOf="@id/bottom_view_second" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/order_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/bottom_view"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_view_second"
         app:layout_constraintStart_toEndOf="@id/order_total_text"
-        app:layout_constraintTop_toTopOf="@id/bottom_view"
+        app:layout_constraintTop_toTopOf="@id/bottom_view_second"
         tools:text="99999" />
 
     <com.google.android.material.button.MaterialButton
@@ -61,8 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/order_complete"
-        app:layout_constraintBottom_toBottomOf="@id/bottom_view"
-        app:layout_constraintEnd_toEndOf="@id/bottom_view"
-        app:layout_constraintTop_toTopOf="@id/bottom_view" />
+        app:layout_constraintBottom_toBottomOf="@id/bottom_view_second"
+        app:layout_constraintEnd_toEndOf="@id/bottom_view_second" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

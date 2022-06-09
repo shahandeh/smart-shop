@@ -28,7 +28,12 @@ class OrderFragment : Fragment(R.layout.fragment_order), OrderClickListener {
         binding = FragmentOrderBinding.bind(view)
         val pendingOrderListAdapter = OrderAdapter(this)
         binding.recyclerView.adapter = pendingOrderListAdapter
-        binding.orderComplete.setOnClickListener { orderViewModer.orderComplete() }
+        binding.orderComplete.setOnClickListener {
+            val action = OrderFragmentDirections.actionGlobalOrderDetailFragment()
+            findNavController().navigate(action)
+        }
+
+        orderViewModer.getOrder()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
