@@ -33,7 +33,7 @@ class HomeListAdapter(
 
         private fun bindData(dataModel: DataModel.Data){
             val shimmer = itemView.findViewById<ShimmerFrameLayout>(R.id.shimmer)
-            itemView.findViewById<ShapeableImageView>(R.id.product_list_sample_image).glide(dataModel.product.images[0].src, shimmer)
+            if (dataModel.product.images.isNotEmpty()) itemView.findViewById<ShapeableImageView>(R.id.product_list_sample_image).glide(dataModel.product.images[0].src, shimmer)
             itemView.findViewById<MaterialTextView>(R.id.product_list_sample_name).text = dataModel.product.name
             itemView.findViewById<MaterialTextView>(R.id.product_list_sample_regular_price).text = dataModel.product.regular_price
             itemView.setOnClickListener { homeClickListener.product(dataModel.product.id.toString()) }

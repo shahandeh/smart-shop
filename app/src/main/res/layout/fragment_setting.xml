@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.setting.SettingFragment">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/apply"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:checkedButton="@id/three"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notification">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/twelve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:layoutDirection="rtl"
+            android:text="@string/per_12_hour"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/eight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:layoutDirection="rtl"
+            android:text="@string/per_8_hour"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:layoutDirection="rtl"
+            android:text="@string/per_5_hour"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:layoutDirection="rtl"
+            android:text="@string/per_3_hour"/>
+
+    </RadioGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/notification"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/apply"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@id/stop"
+        app:layout_constraintEnd_toStartOf="@id/time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/time"
+        android:layout_width="88dp"
+        android:layout_height="44dp"
+        android:hint="@string/hour"
+        app:layout_constraintBottom_toBottomOf="@id/apply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/apply"
+        app:layout_constraintTop_toTopOf="@id/apply" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stop"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/apply" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/stop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stop"
+        app:layout_constraintTop_toTopOf="@id/stop" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

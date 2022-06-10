@@ -105,4 +105,13 @@
         android:id="@+id/action_global_orderDetailFragment"
         app:destination="@id/orderDetailFragment"
         app:popUpTo="@id/navigation" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.smartshop.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <action
+        android:id="@+id/action_global_settingFragment"
+        app:destination="@id/settingFragment"
+        app:popUpTo="@id/navigation" />
 </navigation>

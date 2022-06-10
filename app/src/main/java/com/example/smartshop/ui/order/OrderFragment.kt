@@ -10,9 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.smartshop.R
+import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.databinding.FragmentOrderBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.OrderAdapter
+import com.example.smartshop.util.gone
+import com.example.smartshop.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,6 +29,9 @@ class OrderFragment : Fragment(R.layout.fragment_order), OrderClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentOrderBinding.bind(view)
+
+        if (user_id != 0) binding.login.gone()
+
         val pendingOrderListAdapter = OrderAdapter(this)
         binding.recyclerView.adapter = pendingOrderListAdapter
         binding.orderComplete.setOnClickListener {
@@ -47,8 +53,12 @@ class OrderFragment : Fragment(R.layout.fragment_order), OrderClickListener {
                             }
 
                             is ResultWrapper.Success -> {
-                                if (it.value.isNotEmpty())
-                                    orderViewModer.setDataFromOrder(it.value)
+                                if (it.value.isNotEmpty()) {
+                                    if (it.value[0].line_items.isNotEmpty()) {
+                                        orderViewModer.setDataFromOrder(it.value)
+                                        binding.empty.gone()
+                                    }
+                                } else binding.empty.visible()
                                 binding.customView.onSuccess()
                             }
 
@@ -69,13 +79,16 @@ class OrderFragment : Fragment(R.layout.fragment_order), OrderClickListener {
                             }
 
                             is ResultWrapper.Success -> {
-                                val productInOrderList =
-                                    orderViewModer.createProductInOrderList(it.value)
-                                orderViewModer.productInOrderList.clear()
-                                orderViewModer.productInOrderList.addAll(productInOrderList)
-                                binding.orderTotal.text = orderViewModer.totalPrice()
-                                pendingOrderListAdapter.submitList(orderViewModer.productInOrderList)
-                                pendingOrderListAdapter.notifyDataSetChanged()
+                                if (it.value.isEmpty()) binding.empty.visible()
+                                else {
+                                    val productInOrderList =
+                                        orderViewModer.createProductInOrderList(it.value)
+                                    orderViewModer.productInOrderList.clear()
+                                    orderViewModer.productInOrderList.addAll(productInOrderList)
+                                    binding.orderTotal.text = orderViewModer.totalPrice()
+                                    pendingOrderListAdapter.submitList(orderViewModer.productInOrderList)
+                                    pendingOrderListAdapter.notifyDataSetChanged()
+                                }
                                 binding.customView.onSuccess()
                             }
 

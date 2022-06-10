@@ -10,7 +10,6 @@ import com.example.smartshop.data.model.order.UpdateOrder
 import com.example.smartshop.data.model.order.UpdateOrderResponse
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.util.launch
-import com.example.smartshop.util.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -81,7 +80,6 @@ class OrderDetailViewModel @Inject constructor(
     }
 
     fun validateCoupon() {
-        log(couponCode)
         launch {
             repository.validateCoupon(couponCode).collect {
                 _validateCouponResponse.emit(it)

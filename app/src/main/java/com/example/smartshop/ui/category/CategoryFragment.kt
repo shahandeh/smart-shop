@@ -13,6 +13,7 @@ import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentCategoryBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.CategoryListAdapter
+import com.example.smartshop.ui.adapter.OrderHistoryItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,7 +32,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         binding.recyclerView.adapter = categoryListAdapter
         binding.recyclerView.adapter?.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-
+        binding.recyclerView.addItemDecoration(OrderHistoryItemDecoration(16))
         categoryViewModel.getCategoryList()
 
         viewLifecycleOwner.lifecycleScope.launch {

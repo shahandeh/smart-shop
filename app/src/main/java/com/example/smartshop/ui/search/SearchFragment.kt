@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentSearchBinding
@@ -27,7 +28,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding = FragmentSearchBinding.bind(view)
 
         searchListAdapter = ProductListAdapter {
-
+            val action = SearchFragmentDirections.actionGlobalDetailFragment(it)
+            findNavController().navigate(action)
         }
 
         binding.recyclerView.adapter = searchListAdapter
@@ -43,7 +45,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //
+                if (newText != null && newText.isNotBlank()) {
+                    searchViewModel.searchProduct(newText)
+                    searchViewModel.param = newText
+                }
                 return false
             }
         })
@@ -60,15 +65,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
                         is ResultWrapper.Success -> {
                             binding.customView.onSuccess()
-                            it.value?.let { productList ->
-                                searchListAdapter.submitList(productList)
-                            }
+                            searchListAdapter.submitList(it.value)
+
                         }
 
                         is ResultWrapper.Failure -> {
-                            it.message?.let { message ->
-                                binding.customView.onFail(message)
-                            }
+                            binding.customView.onFail(it.message.toString())
                             binding.customView.click {
                                 searchViewModel.searchProduct(searchViewModel.param)
                             }

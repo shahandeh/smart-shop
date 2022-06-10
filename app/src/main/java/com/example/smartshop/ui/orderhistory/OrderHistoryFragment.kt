@@ -10,10 +10,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
+import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.databinding.FragmentOrderHistoryBinding
 import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.ui.adapter.OrderHistoryAdapter
 import com.example.smartshop.ui.adapter.OrderHistoryItemDecoration
+import com.example.smartshop.util.gone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,6 +27,8 @@ class OrderHistoryFragment : Fragment(R.layout.fragment_order_history) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOrderHistoryBinding.bind(view)
+
+        if (user_id != 0) binding.login.gone()
 
         orderHistoryAdapter = OrderHistoryAdapter()
         binding.recyclerView.adapter = orderHistoryAdapter

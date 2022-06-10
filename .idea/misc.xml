@@ -34,20 +34,25 @@
         <entry key="app/src/main/res/drawable/test.xml" value="0.203" />
         <entry key="app/src/main/res/drawable/total_review.xml" value="0.1495" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/category_list_sample.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/custom_view_layout.xml" value="0.36354166666666665" />
+        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_create_review.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_create_review_actionbar.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.36354166666666665" />
-        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.32407407407407407" />
+        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_order_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_order_history.xml" value="0.36354166666666665" />
+        <entry key="app/src/main/res/layout/fragment_product_list.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_review_list.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.36354166666666665" />
+        <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/fragment_user.xml" value="0.34183673469387754" />
         <entry key="app/src/main/res/layout/home_product_list_sample.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/image_list_sample.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/image_slider_sample.xml" value="0.3625" />
+        <entry key="app/src/main/res/layout/notification_collapse.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/order_history_sample.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/order_sample.xml" value="0.29074074074074074" />
         <entry key="app/src/main/res/layout/product_list_sample.xml" value="0.36354166666666665" />

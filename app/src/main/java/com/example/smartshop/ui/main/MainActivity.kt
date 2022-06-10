@@ -19,8 +19,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.airbnb.lottie.LottieAnimationView
 import com.example.smartshop.R
+import com.example.smartshop.constant.ID
 import com.example.smartshop.constant.SET_THEME
 import com.example.smartshop.constant.SET_USER_ID
 import com.example.smartshop.data.CurrentUser.email
@@ -33,10 +37,12 @@ import com.example.smartshop.safeapi.ResultWrapper
 import com.example.smartshop.tracker.NetworkStatus
 import com.example.smartshop.util.gone
 import com.example.smartshop.util.visible
+import com.example.smartshop.worker.SmartShopWorker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -92,6 +98,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val test = PeriodicWorkRequestBuilder<SmartShopWorker>(3, TimeUnit.HOURS).build()
+        val workManager = WorkManager.getInstance(applicationContext)
+        workManager.enqueueUniquePeriodicWork(
+            ID,
+            ExistingPeriodicWorkPolicy.KEEP,
+            test
+        )
     }
 
     private fun setTheme() {

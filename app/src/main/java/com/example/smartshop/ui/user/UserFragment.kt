@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.smartshop.R
 import com.example.smartshop.constant.SET_USER_ID
 import com.example.smartshop.data.CurrentUser
@@ -34,6 +35,8 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserBinding.bind(view)
 
+        binding.setting.setOnClickListener { navigateToSetting() }
+
         if (user_id != 0) {
             isLogInViewInit()
         }
@@ -51,11 +54,17 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         }
 
         binding.signOut.setOnClickListener {
+            user_id = 0
             isLogOutViewInit()
             lifecycleScope.launch {
                 saveUserToDataStore(0)
             }
         }
+    }
+
+    private fun navigateToSetting() {
+        val action = UserFragmentDirections.actionGlobalSettingFragment()
+        findNavController().navigate(action)
     }
 
     private fun retrieveInputText() {
@@ -68,7 +77,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     }
 
     private fun collectUser() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     userViewModel.user.collect {
@@ -100,7 +109,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     }
 
     private fun collectUserList() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     userViewModel.userList.collect {

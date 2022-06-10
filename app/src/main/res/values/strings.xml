@@ -55,4 +55,15 @@
     <string name="final_price">قیمت نهایی</string>
     <string name="apply_coupon">اعمال کد تخفیف</string>
     <string name="buying">انجام خرید</string>
+    <string name="notification">Notification</string>
+    <string name="setting">تنظیمات</string>
+    <string name="intered_value_is_not_acceptable">مقدار وارد شده صحیح نمی‌باشد!</string>
+    <string name="per_3_hour">۳ ساعت</string>
+    <string name="per_5_hour">۵ ساعت</string>
+    <string name="per_8_hour">۸ ساعت</string>
+    <string name="per_12_hour">۱۲ ساعت</string>
+    <string name="apply">Apply</string>
+    <string name="hour">Hour</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
 </resources>

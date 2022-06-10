@@ -100,7 +100,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
                             is ResultWrapper.Failure -> {
                                 hideBuyButton()
-                                binding.customView.onFail(it.message.toString())
+                                binding.customView.onSuccess()
                                 binding.customView.click {
                                     detailViewModel.getOrder()
                                 }

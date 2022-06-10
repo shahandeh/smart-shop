@@ -44,9 +44,11 @@ class OrderDetailFragment : Fragment(R.layout.fragment_order_detail) {
                             }
                             is ResultWrapper.Success -> {
                                 binding.customView.onSuccess()
-                                orderViewModel.order = it.value[0]
-                                orderViewModel.setDateFromOrder()
-                                showData()
+                                if (it.value.isNotEmpty()) {
+                                    orderViewModel.order = it.value[0]
+                                    orderViewModel.setDateFromOrder()
+                                    showData()
+                                }
                             }
                             is ResultWrapper.Failure -> {
                                 binding.customView.onFail(it.message.toString())
@@ -63,9 +65,10 @@ class OrderDetailFragment : Fragment(R.layout.fragment_order_detail) {
                                 binding.customView.onLoading()
                             }
                             is ResultWrapper.Success -> {
+                                binding.data.gone()
                                 binding.customView.onSuccess()
                                 binding.root.snack(getString(R.string.your_request_status_is_complete))
-                                binding.data.gone()
+                                binding.success.visible()
                             }
                             is ResultWrapper.Failure -> {
                                 binding.customView.onFail(it.message.toString())

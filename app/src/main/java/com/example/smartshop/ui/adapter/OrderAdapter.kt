@@ -31,6 +31,7 @@ class OrderAdapter(
                 price.text = product.regular_price
                 countNumber.text = product.quantity.toString()
                 if (product.quantity == 1) minusCount.setImageResource(R.drawable.ic_delete)
+                else minusCount.setImageResource(R.drawable.ic_minus)
                 plusCount.setOnClickListener { orderClickListener.plusCount(product.id) }
                 minusCount.setOnClickListener { orderClickListener.minusCount(product.id) }
                 root.setOnClickListener { orderClickListener.clickItem(product.id) }

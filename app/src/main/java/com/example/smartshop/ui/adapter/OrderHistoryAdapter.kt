@@ -8,19 +8,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.data.model.order.GetOrder
 import com.example.smartshop.databinding.OrderHistorySampleBinding
 
-class OrderHistoryAdapter: ListAdapter<GetOrder, OrderHistoryAdapter.OrderHistoryViewHolder>(OrderHistoryDiffCallback()) {
+class OrderHistoryAdapter :
+    ListAdapter<GetOrder, OrderHistoryAdapter.OrderHistoryViewHolder>(OrderHistoryDiffCallback()) {
 
-    inner class OrderHistoryViewHolder(private val binding: OrderHistorySampleBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(order: GetOrder){
+    inner class OrderHistoryViewHolder(private val binding: OrderHistorySampleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(order: GetOrder) {
             binding.apply {
                 createDate.text = order.date_created.split("T")[0]
+                total.text = order.total
                 id.text = order.id.toString()
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        OrderHistoryViewHolder(OrderHistorySampleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        OrderHistoryViewHolder(OrderHistorySampleBinding.inflate(LayoutInflater.from(parent.context),
+            parent,
+            false))
 
     override fun onBindViewHolder(holder: OrderHistoryViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -28,7 +33,7 @@ class OrderHistoryAdapter: ListAdapter<GetOrder, OrderHistoryAdapter.OrderHistor
 
 }
 
-class OrderHistoryDiffCallback: DiffUtil.ItemCallback<GetOrder>(){
+class OrderHistoryDiffCallback : DiffUtil.ItemCallback<GetOrder>() {
 
     override fun areItemsTheSame(oldItem: GetOrder, newItem: GetOrder) = oldItem.id == newItem.id
 
