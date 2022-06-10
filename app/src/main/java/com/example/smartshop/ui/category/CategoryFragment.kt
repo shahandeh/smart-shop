@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentCategoryBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.CategoryListAdapter
-import com.example.smartshop.ui.adapter.OrderHistoryItemDecoration
+import com.example.smartshop.ui.orderhistory.OrderHistoryItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

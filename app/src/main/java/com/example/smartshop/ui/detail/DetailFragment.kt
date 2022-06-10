@@ -17,9 +17,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentDetailBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.DetailReviewListAdapter
-import com.example.smartshop.ui.adapter.ImageRecyclerAdapter
-import com.example.smartshop.ui.adapter.OrderHistoryItemDecoration
+import com.example.smartshop.ui.reviewlist.DetailReviewListAdapter
+import com.example.smartshop.ui.home.ImageRecyclerAdapter
+import com.example.smartshop.ui.orderhistory.OrderHistoryItemDecoration
 import com.example.smartshop.util.cleaner
 import com.example.smartshop.util.gone
 import com.example.smartshop.util.visible

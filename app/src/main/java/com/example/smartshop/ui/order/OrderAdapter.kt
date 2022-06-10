@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.order
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
 import com.example.smartshop.data.model.product.ProductInOrder
 import com.example.smartshop.databinding.OrderSampleBinding
-import com.example.smartshop.ui.order.OrderClickListener
 import com.example.smartshop.util.glide
 import com.example.smartshop.util.visible
 

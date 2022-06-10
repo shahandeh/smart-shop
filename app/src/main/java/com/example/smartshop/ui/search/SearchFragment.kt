@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentSearchBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.ProductListAdapter
+import com.example.smartshop.ui.productlist.ProductListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

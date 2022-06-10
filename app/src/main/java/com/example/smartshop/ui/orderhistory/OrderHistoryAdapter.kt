@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.orderhistory
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

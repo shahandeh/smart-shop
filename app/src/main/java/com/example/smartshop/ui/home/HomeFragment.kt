@@ -16,8 +16,6 @@ import com.example.smartshop.R
 import com.example.smartshop.data.model.product.Image
 import com.example.smartshop.databinding.FragmentHomeBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.HomeListAdapter
-import com.example.smartshop.ui.adapter.ImageSliderAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

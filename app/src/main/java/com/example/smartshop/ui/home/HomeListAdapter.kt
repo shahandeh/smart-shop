@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.R
-import com.example.smartshop.ui.home.HomeClickListener
 import com.example.smartshop.util.glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.imageview.ShapeableImageView
@@ -44,7 +43,7 @@ class HomeListAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val layout = when(viewType){
             HEADER -> R.layout.home_header_sample
             DATA -> R.layout.home_product_list_sample

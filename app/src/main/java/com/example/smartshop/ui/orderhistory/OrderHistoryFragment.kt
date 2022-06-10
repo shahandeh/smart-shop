@@ -13,8 +13,6 @@ import com.example.smartshop.R
 import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.databinding.FragmentOrderHistoryBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.OrderHistoryAdapter
-import com.example.smartshop.ui.adapter.OrderHistoryItemDecoration
 import com.example.smartshop.util.gone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

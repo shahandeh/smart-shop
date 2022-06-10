@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.reviewlist
 
 import android.graphics.Color
 import android.os.Build
@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartshop.data.CurrentUser.email
 import com.example.smartshop.data.model.review.Review
 import com.example.smartshop.databinding.ReviewListSampleBinding
-import com.example.smartshop.ui.reviewlist.IReviewList
 import com.example.smartshop.util.cleaner
 import com.example.smartshop.util.timeCalc
 import com.example.smartshop.util.visible
 
 @RequiresApi(Build.VERSION_CODES.N)
-class ReviewListAdapter(private val iReviewList: IReviewList) : ListAdapter<Review, ReviewListAdapter.ReviewListViewHolder>(ReviewListDiffCallback()) {
+class ReviewListAdapter(private val iReviewList: IReviewList) : ListAdapter<Review, ReviewListAdapter.ReviewListViewHolder>(
+    ReviewListDiffCallback()) {
 
     inner class ReviewListViewHolder(private val binding: ReviewListSampleBinding) :
         RecyclerView.ViewHolder(binding.root) {

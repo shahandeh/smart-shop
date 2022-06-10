@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.category
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.smartshop.data.model.product.Category

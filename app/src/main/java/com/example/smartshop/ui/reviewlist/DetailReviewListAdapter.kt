@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.reviewlist
 
 import android.os.Build
 import android.view.LayoutInflater

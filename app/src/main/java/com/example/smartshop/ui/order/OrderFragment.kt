@@ -13,7 +13,6 @@ import com.example.smartshop.R
 import com.example.smartshop.data.CurrentUser.user_id
 import com.example.smartshop.databinding.FragmentOrderBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.OrderAdapter
 import com.example.smartshop.util.gone
 import com.example.smartshop.util.visible
 import dagger.hilt.android.AndroidEntryPoint

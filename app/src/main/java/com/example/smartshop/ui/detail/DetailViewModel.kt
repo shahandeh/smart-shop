@@ -7,7 +7,7 @@ import com.example.smartshop.data.model.order.*
 import com.example.smartshop.data.model.product.Product
 import com.example.smartshop.data.model.review.Review
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.ReviewDataModel
+import com.example.smartshop.ui.reviewlist.ReviewDataModel
 import com.example.smartshop.util.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.home
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

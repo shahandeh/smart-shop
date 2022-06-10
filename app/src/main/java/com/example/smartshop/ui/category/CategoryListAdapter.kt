@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,8 @@ import com.example.smartshop.data.model.product.Category
 import com.example.smartshop.databinding.CategoryListSampleBinding
 import com.example.smartshop.util.glide
 
-class CategoryListAdapter(private val fn: (id: Int) -> Unit): ListAdapter<Category, CategoryListAdapter.CategoryViewHolder>(CategoryDiffCallback()) {
+class CategoryListAdapter(private val fn: (id: Int) -> Unit): ListAdapter<Category, CategoryListAdapter.CategoryViewHolder>(
+    CategoryDiffCallback()) {
 
     inner class CategoryViewHolder(private val binding: CategoryListSampleBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category){

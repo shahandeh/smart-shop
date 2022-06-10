@@ -1,4 +1,4 @@
-package com.example.smartshop.ui.adapter
+package com.example.smartshop.ui.home
 
 import com.example.smartshop.data.model.product.Product
 

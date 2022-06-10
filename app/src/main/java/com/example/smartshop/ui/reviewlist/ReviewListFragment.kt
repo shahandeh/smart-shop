@@ -14,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.smartshop.R
 import com.example.smartshop.databinding.FragmentReviewListBinding
 import com.example.smartshop.safeapi.ResultWrapper
-import com.example.smartshop.ui.adapter.ReviewListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
